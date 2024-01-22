@@ -1,0 +1,47 @@
+<div>
+  <%= address_form.label :name, "Názov firmy" %>
+  <%= address_form.text_field :name %>
+  <%= render "shared/error_form_field", object: object, field: :name %>
+
+</div>
+<div>
+  <%= address_form.label :register_number, "Popisné číslo" %>
+  <%= address_form.text_field :register_number %>
+  <%= render "shared/error_form_field", object: object, field: :register_number %>
+</div>
+<div>
+  <%= address_form.label :contact, "Kontakt" %>
+  <%= address_form.text_field :contact %>
+  <%= render "shared/error_form_field", object: object, field: :contact %>
+
+</div>
+<div>
+  <%= address_form.label :street, "Ulica" %>
+  <%= address_form.text_field :street %>
+  <%= render "shared/error_form_field", object: object, field: :street %>
+</div>
+
+<div>
+  <%= address_form.label :city, "Mesto" %>
+  <%= address_form.text_field :city %>
+  <%= render "shared/error_form_field", object: object, field: :city %>
+</div>
+<div>
+  <%= address_form.label :postal_code, "PSČ" %>
+  <%= address_form.text_field :postal_code %>
+  <%= render "shared/error_form_field", object: object, field: :postal_code %>
+
+</div>
+<div>
+  <%= address_form.label :street_number, "Číslo ulice" %>
+  <%= address_form.text_field :street_number %>
+  <%= render "shared/error_form_field", object: object, field: :street_number %>
+
+</div>
+
+<div>
+  <%= address_form.label :country, "Krajina" %>
+  <%= address_form.select :country, Account.countries.collect { |k, v| [v, v] } %>
+  <%= render "shared/error_form_field", object: object, field: :country %>
+
+</div>

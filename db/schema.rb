@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_22_154510) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_22_161647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,12 +39,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_154510) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "articles", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "invoice_accounts", force: :cascade do |t|
     t.string "vat_payer_type"
     t.string "registration_id", limit: 100
@@ -59,6 +53,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_154510) do
     t.bigint "postal_address_id"
     t.index ["invoice_address_id"], name: "index_invoice_accounts_on_invoice_address_id"
     t.index ["postal_address_id"], name: "index_invoice_accounts_on_postal_address_id"
+  end
+
+  create_table "user_accounts", force: :cascade do |t|
+    t.string "user_role"
+    t.boolean "default", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "account_id"
+    t.index ["account_id", "user_id"], name: "index_user_accounts_on_account_id_and_user_id", unique: true
+    t.index ["account_id"], name: "index_user_accounts_on_account_id"
+    t.index ["user_id"], name: "index_user_accounts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

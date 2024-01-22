@@ -72,3 +72,4 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+gem 'foreman', '~> 0.87.2'

@@ -1,149 +1,46 @@
 <%= form_with(model: account) do |form| %>
-  <% if account.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(account.errors.count, "error") %> prohibited this account from being saved:</h2>
-
-      <ul>
-        <% account.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div>
-    <%= form.label :name,"Názov účtu", style: "display: block" %>
+    <%= form.label :name, "Názov účtu", style: "display: block" %>
     <%= form.text_field :name, class: 'form-control' %>
+    <%= render "shared/error_form_field", object: account, field: :name %>
   </div>
 
-  <div class="lc-input">
-    <%= form.label :country,"Krajina", style: "display: block" %>
+  <div>
+    <%= form.label :country, "Krajina", style: "display: block" %>
     <%= form.select :country, Account.countries %>
+    <%= render "shared/error_form_field", object: account, field: :country %>
   </div>
 
   <div>
-    <%= form.label :legal_form,"Právna forma", style: "display: block" %>
+    <%= form.label :legal_form, "Právna forma", style: "display: block" %>
     <%= form.select :legal_form, Account.legal_forms.collect { |k, v| [v, v] } %>
+    <%= render "shared/error_form_field", object: account, field: :legal_form %>
   </div>
 
   <div>
-    <%= form.label :accounting_type,"Spôsob účtovania", style: "display: block" %>
+    <%= form.label :accounting_type, "Spôsob účtovania", style: "display: block" %>
     <%= form.select :accounting_type, Account.accounting_types.collect { |k, v| [v, v] } %>
+    <%= render "shared/error_form_field", object: account, field: :accounting_type %>
   </div>
 
   <div>
-    <%= form.label :register_text,"Zápis vregistri", style: "display: block" %>
+    <%= form.label :register_text, "Zápis vregistri", style: "display: block" %>
     <%= form.text_field :register_text %>
+    <%= render "shared/error_form_field", object: account, field: :register_text %>
   </div>
 
   <%= fields_for @invoice_account do |invoice_account_form| %>
-    <div>
-      <%= invoice_account_form.label :vat_payer_type, "Registrácia na DPH" %>
-      <%= invoice_account_form.select :vat_payer_type, InvoiceAccount.vat_payer_types.collect { |k, v| [v, v] } %>
-    </div>
-    <div>
-      <%= invoice_account_form.label :registration_id, "IČO" %>
-      <%= invoice_account_form.text_field :registration_id %>
-    </div>
-    <div>
-      <%= invoice_account_form.label :tax_id, "DIČ" %>
-      <%= invoice_account_form.text_field :tax_id %>
-    </div>
-    <div>
-      <%= invoice_account_form.label :vat_id, "IČ DPH" %>
-      <%= invoice_account_form.text_field :vat_id %>
-    </div>
-    <div>
-      <%= invoice_account_form.label :phone_number, "Telefónny kontakt" %>
-      <%= invoice_account_form.text_field :phone_number %>
-    </div>
-    <div>
-      <%= invoice_account_form.label :email, "Email" %>
-      <%= invoice_account_form.text_field :email %>
-    </div>
-    <div>
-      <%= invoice_account_form.label :web, "Web" %>
-      <%= invoice_account_form.text_field :web %>
-    </div>
+    <%= render "invoice_accounts/invoice_accounts_fields", object: @invoice_account, invoice_account_form: invoice_account_form %>
   <% end %>
 
-  <%= fields_for @invoice_address do |invoice_address_form| %>
-
-    <div>
-      <%= invoice_address_form.label :name, "Názov firmy" %>
-      <%= invoice_address_form.text_field :name %>
-    </div>
-    <div>
-      <%= invoice_address_form.label :register_number, "Popisné číslo" %>
-      <%= invoice_address_form.text_field :register_number %>
-    </div>
-    <div>
-      <%= invoice_address_form.label :contact, "Kontakt" %>
-      <%= invoice_address_form.text_field :contact %>
-    </div>
-    <div>
-      <%= invoice_address_form.label :street, "Ulica" %>
-      <%= invoice_address_form.text_field :street %>
-    </div>
-
-    <div>
-      <%= invoice_address_form.label :city, "Mesto" %>
-      <%= invoice_address_form.text_field :city %>
-    </div>
-    <div>
-      <%= invoice_address_form.label :postal_code, "PSČ" %>
-      <%= invoice_address_form.text_field :postal_code %>
-    </div>
-    <div>
-      <%= invoice_address_form.label :street_number, "Číslo ulice" %>
-      <%= invoice_address_form.text_field :street_number %>
-    </div>
-
-    <div>
-      <%= invoice_address_form.label :country, "Krajina" %>
-      <%= invoice_address_form.select :country, Account.countries.collect { |k, v| [v, v] } %>
-    </div>
+  <%= fields_for :invoice_address, @invoice_address do |invoice_address_form| %>
+    <%= render "addresses/address_fields", address_form: invoice_address_form, object: @invoice_address %>
   <% end %>
 
   <div data-controller="form--toggle-visibility">
     <div data-form--toggle-visibility-target="toggleElement">
-      <%= fields_for @postal_address do |postal_address_form| %>
-
-        <div>
-          <%= postal_address_form.label :name, "Názov firmy" %>
-          <%= postal_address_form.text_field :name %>
-        </div>
-        <div>
-          <%= postal_address_form.label :register_number, "Popisné číslo" %>
-          <%= postal_address_form.text_field :register_number %>
-        </div>
-        <div>
-          <%= postal_address_form.label :contact, "Kontakt" %>
-          <%= postal_address_form.text_field :contact %>
-        </div>
-        <div>
-          <%= postal_address_form.label :street, "Ulica" %>
-          <%= postal_address_form.text_field :street %>
-        </div>
-
-        <div>
-          <%= postal_address_form.label :city, "Mesto" %>
-          <%= postal_address_form.text_field :city %>
-        </div>
-        <div>
-          <%= postal_address_form.label :postal_code, "PSČ" %>
-          <%= postal_address_form.text_field :postal_code %>
-        </div>
-        <div>
-          <%= postal_address_form.label :street_number, "Číslo ulice" %>
-          <%= postal_address_form.text_field :street_number %>
-        </div>
-
-        <div>
-          <%= postal_address_form.label :country, "Krajina" %>
-          <%= postal_address_form.select :country, Account.countries.collect { |k, v| [v, v] } %>
-        </div>
-        </div>
+      <%= fields_for :postal_address, @postal_address do |postal_address_form| %>
+        <%= render "addresses/address_fields", address_form: postal_address_form, object: @postal_address %>
       <% end %>
       <div class="form-check">
         <%= form.check_box :address_match, { checked: !@postal_address.persisted?, data: {
@@ -152,7 +49,8 @@
         } }, class: 'form-check-input' %>
         <%= form.label "Faktúračná adresa je zhodná s poštovou", class: 'form-check-label' %>
       </div>
-      </div>
+    </div>
+  </div>
 
   <div>
     <%= form.submit %>
