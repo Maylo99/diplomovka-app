@@ -1,4 +1,7 @@
 class AccountsController < ApplicationController
+  include Params::AddressParams
+  include Params::InvoiceAccountParams
+  include Params::AccountParams
   before_action :set_account, only: %i[ show edit update destroy ]
 
   # GET /accounts or /accounts.json
@@ -13,6 +16,7 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   def new
     @account = Account.new
+    @invoice_account = InvoiceAccount.new
   end
 
   # GET /accounts/1/edit
@@ -56,10 +60,5 @@ class AccountsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_account
       @account = Account.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def account_params
-      params.require(:account).permit(:name, :accounting_type, :register_text, :country, :legal_form)
     end
 end
