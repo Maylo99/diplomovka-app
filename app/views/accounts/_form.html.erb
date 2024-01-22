@@ -12,33 +12,33 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name,"Názov účtu", style: "display: block" %>
     <%= form.text_field :name, class: 'form-control' %>
   </div>
 
   <div class="lc-input">
-    <%= form.label :country, style: "display: block" %>
+    <%= form.label :country,"Krajina", style: "display: block" %>
     <%= form.select :country, Account.countries %>
   </div>
 
   <div>
-    <%= form.label :legal_form, style: "display: block" %>
+    <%= form.label :legal_form,"Právna forma", style: "display: block" %>
     <%= form.select :legal_form, Account.legal_forms.collect { |k, v| [v, v] } %>
   </div>
 
   <div>
-    <%= form.label :accounting_type, style: "display: block" %>
+    <%= form.label :accounting_type,"Spôsob účtovania", style: "display: block" %>
     <%= form.select :accounting_type, Account.accounting_types.collect { |k, v| [v, v] } %>
   </div>
 
   <div>
-    <%= form.label :register_text, style: "display: block" %>
+    <%= form.label :register_text,"Zápis vregistri", style: "display: block" %>
     <%= form.text_field :register_text %>
   </div>
 
   <%= fields_for @invoice_account do |invoice_account_form| %>
     <div>
-      <%= invoice_account_form.label :vat_payer_type %>
+      <%= invoice_account_form.label :vat_payer_type, "Registrácia na DPH" %>
       <%= invoice_account_form.select :vat_payer_type, InvoiceAccount.vat_payer_types.collect { |k, v| [v, v] } %>
     </div>
     <div>
