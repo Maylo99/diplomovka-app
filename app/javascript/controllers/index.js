@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
+import Form__ToggleVisibilityController from "./form/toggle_visibility_controller"
+application.register("form--toggle-visibility", Form__ToggleVisibilityController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)

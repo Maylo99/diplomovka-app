@@ -104,43 +104,56 @@
       <%= invoice_address_form.select :country, Account.countries.collect { |k, v| [v, v] } %>
     </div>
   <% end %>
-    <%= fields_for @postal_address do |postal_address_form| %>
 
-      <div>
-        <%= postal_address_form.label :name, "Názov firmy" %>
-        <%= postal_address_form.text_field :name %>
+  <div data-controller="form--toggle-visibility">
+    <div data-form--toggle-visibility-target="toggleElement">
+      <%= fields_for @postal_address do |postal_address_form| %>
+
+        <div>
+          <%= postal_address_form.label :name, "Názov firmy" %>
+          <%= postal_address_form.text_field :name %>
+        </div>
+        <div>
+          <%= postal_address_form.label :register_number, "Popisné číslo" %>
+          <%= postal_address_form.text_field :register_number %>
+        </div>
+        <div>
+          <%= postal_address_form.label :contact, "Kontakt" %>
+          <%= postal_address_form.text_field :contact %>
+        </div>
+        <div>
+          <%= postal_address_form.label :street, "Ulica" %>
+          <%= postal_address_form.text_field :street %>
+        </div>
+
+        <div>
+          <%= postal_address_form.label :city, "Mesto" %>
+          <%= postal_address_form.text_field :city %>
+        </div>
+        <div>
+          <%= postal_address_form.label :postal_code, "PSČ" %>
+          <%= postal_address_form.text_field :postal_code %>
+        </div>
+        <div>
+          <%= postal_address_form.label :street_number, "Číslo ulice" %>
+          <%= postal_address_form.text_field :street_number %>
+        </div>
+
+        <div>
+          <%= postal_address_form.label :country, "Krajina" %>
+          <%= postal_address_form.select :country, Account.countries.collect { |k, v| [v, v] } %>
+        </div>
+        </div>
+      <% end %>
+      <div class="form-check">
+        <%= form.check_box :address_match, { checked: !@postal_address.persisted?, data: {
+          :action => "change->form--toggle-visibility#toggleElementDisplay",
+          :form__toggle_visibility_target => "flag"
+        } }, class: 'form-check-input' %>
+        <%= form.label "Faktúračná adresa je zhodná s poštovou", class: 'form-check-label' %>
       </div>
-      <div>
-        <%= postal_address_form.label :register_number, "Popisné číslo" %>
-        <%= postal_address_form.text_field :register_number %>
-      </div>
-      <div>
-        <%= postal_address_form.label :contact, "Kontakt" %>
-        <%= postal_address_form.text_field :contact %>
-      </div>
-      <div>
-        <%= postal_address_form.label :street, "Ulica" %>
-        <%= postal_address_form.text_field :street %>
       </div>
 
-      <div>
-        <%= postal_address_form.label :city, "Mesto" %>
-        <%= postal_address_form.text_field :city %>
-      </div>
-      <div>
-        <%= postal_address_form.label :postal_code, "PSČ" %>
-        <%= postal_address_form.text_field :postal_code %>
-      </div>
-      <div>
-        <%= postal_address_form.label :street_number, "Číslo ulice" %>
-        <%= postal_address_form.text_field :street_number %>
-      </div>
-
-      <div>
-        <%= postal_address_form.label :country, "Krajina" %>
-        <%= postal_address_form.select :country, Account.countries.collect { |k, v| [v, v] } %>
-      </div>
-    <% end %>
   <div>
     <%= form.submit %>
   </div>

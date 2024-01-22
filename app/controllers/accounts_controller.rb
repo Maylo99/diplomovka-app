@@ -17,6 +17,8 @@ class AccountsController < ApplicationController
   def new
     @account = Account.new
     @invoice_account = InvoiceAccount.new
+    @address = Address.new
+    @postal_address = Address.new
   end
 
   # GET /accounts/1/edit
