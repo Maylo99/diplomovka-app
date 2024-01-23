@@ -1,0 +1,43 @@
+<%= form_with(model: partner,url: url) do |form| %>
+
+  <div>
+    <%= form.label :name, class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control' %>
+    <%= render "shared/error_form_field", object: @partner, field: :name %>
+  </div>
+
+  <%= fields_for @invoice_account do |inv_form| %>
+    <h2>Faktúračný účet</h2>
+    <%= render 'invoice_accounts/invoice_accounts_fields', invoice_account_form: inv_form, object: @invoice_account %>
+  <% end %>
+  <div data-controller="form--toggle-visibility">
+    <div class="row">
+      <div class="col-6">
+        <div id="prefill_client">
+          <%= fields_for @address do |inv_acc_form| %>
+            <h2>Adresa</h2>
+            <%= render 'addresses/address_fields', address_form: inv_acc_form, object: @address %>
+          <% end %>
+        </div>
+        <div class="form-check">
+          <%= form.check_box :address_match, { checked: !@postal_address.persisted?, data: {
+            :action => "change->form--toggle-visibility#toggleElementDisplay",
+            :form__toggle_visibility_target => "flag"
+          } }, class: 'form-check-input' %>
+          <%= form.label "Faktúračná adresa sa zhoduje s poštovou!", class: 'form-check-label' %>
+        </div>
+      </div>
+      <div class="col-6">
+        <div data-form--toggle-visibility-target="toggleElement">
+          <%= fields_for :postal_address, @postal_address do |inv_acc_form| %>
+            <h2>Poštová adresa</h2>
+            <%= render 'addresses/address_fields', address_form: inv_acc_form, object: @postal_address %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-5">
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>
