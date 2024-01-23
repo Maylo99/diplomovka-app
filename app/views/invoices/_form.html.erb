@@ -48,6 +48,40 @@
     <%= render "shared/error_form_field", object: invoice, field: :order_number %>
   </div>
 
+
+  <div data-controller="form--fields-for">
+    <div class="d-flex card">
+      <!-- header -->
+      <div>
+        <div>Fakturované položky</div>
+        <div class="row">
+          <div class="col">Názov</div>
+          <div class="col">Počet</div>
+          <div class="col">MJ</div>
+          <div class="col">Cena za jednotku</div>
+          <div class="col">Cena celkom</div>
+          <div class="col">DPH</div>
+          <div class="col">Cena s DPH</div>
+          <div class="col">Vymaž položku</div>
+        </div>
+      </div>
+      <!-- body -->
+      <!-- TODO: wrap to div -->
+      <%= form.fields_for :invoice_items do |invoice_items_form| %>
+
+        <%= render 'invoices/invoice_items/invoice_items_fields', form: invoice_items_form %>
+      <% end %>
+      <div>
+        <%= button_tag("Add invoice item", {
+          data: {
+            action: "form--fields-for#add",
+            fields: form.fields_for(:invoice_items, InvoiceItem.new, child_index: "new_field") { |document_item_add_form| render("invoices/invoice_items/invoice_items_fields", form: document_item_add_form) }
+          }}) %>
+      </div>
+      <!-- footer -->
+    </div>
+  </div>
+
   <div>
     <%= form.submit %>
   </div>

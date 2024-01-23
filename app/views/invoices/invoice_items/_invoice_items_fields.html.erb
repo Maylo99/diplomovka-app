@@ -1,0 +1,30 @@
+<!-- body -->
+<div class="row" data-target="fields-for.fields">
+  <div class="col">
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="col">
+    <%= form.text_field :quantity, class: 'form-control' %>
+  </div>
+  <div class="col">
+    <%= form.text_field :measure_unit, class: 'form-control' %>
+  </div>
+  <div class="col">
+    <%= form.text_field :unit_price, class: 'form-control' %>
+  </div>
+  <div class="col">
+    <%#= :quantity * :unit_price %>
+    <input type="text" class="form-control" placeholder="Suma">
+  </div>
+  <div class="col">
+    <%= form.text_field :vat_rate, class: 'form-control' %>
+  </div>
+
+  <div class="col">
+    <%#= :quantity * :unit_price * :vat_rate %>
+    <input type="text" class="form-control" placeholder="Suma s DPH">
+  </div>
+  <div class="col">
+    <%= form.check_box :_destroy, {data: {action: "form--fields-for#hide"}} %>
+  </div>
+</div>
