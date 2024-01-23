@@ -1,0 +1,36 @@
+<%= form_with(model: bank_account) do |form| %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :currency, style: "display: block" %>
+    <%= form.text_field :currency %>
+  </div>
+
+  <div>
+    <%= form.label :iban, style: "display: block" %>
+    <%= form.text_field :iban %>
+  </div>
+
+  <div>
+    <%= form.label :swift_code, style: "display: block" %>
+    <%= form.text_field :swift_code %>
+  </div>
+
+  <div>
+    <%= form.label :account_number, style: "display: block" %>
+    <%= form.text_field :account_number %>
+  </div>
+
+  <div>
+    <%= form.label :bank_code, style: "display: block" %>
+    <%= form.text_field :bank_code %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
