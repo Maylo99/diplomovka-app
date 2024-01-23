@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_22_161647) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_23_131810) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,6 +37,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_161647) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "bank_accounts", force: :cascade do |t|
+    t.string "name", limit: 100
+    t.string "currency", limit: 10, null: false
+    t.string "iban", limit: 50, null: false
+    t.string "swift_code", limit: 15, null: false
+    t.string "account_number", null: false
+    t.string "bank_code", limit: 10
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_bank_accounts_on_account_id"
   end
 
   create_table "invoice_accounts", force: :cascade do |t|
@@ -84,6 +97,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_161647) do
   end
 
   add_foreign_key "accounts", "invoice_accounts"
+  add_foreign_key "bank_accounts", "accounts"
   add_foreign_key "invoice_accounts", "addresses", column: "invoice_address_id"
   add_foreign_key "invoice_accounts", "addresses", column: "postal_address_id"
 end
