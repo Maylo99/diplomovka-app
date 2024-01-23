@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :accounts, param: :account_id do
     member do
       resources :bank_accounts
+      resources :partners
     end
   end
   # Defines the root path route ("/")

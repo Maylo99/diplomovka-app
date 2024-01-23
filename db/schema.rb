@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_23_131810) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_23_142135) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_23_131810) do
     t.index ["postal_address_id"], name: "index_invoice_accounts_on_postal_address_id"
   end
 
+  create_table "partners", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "client_id", null: false
+    t.string "name", null: false
+    t.index ["account_id"], name: "index_partners_on_account_id"
+    t.index ["client_id"], name: "index_partners_on_client_id"
+  end
+
   create_table "user_accounts", force: :cascade do |t|
     t.string "user_role"
     t.boolean "default", default: false
@@ -100,4 +108,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_23_131810) do
   add_foreign_key "bank_accounts", "accounts"
   add_foreign_key "invoice_accounts", "addresses", column: "invoice_address_id"
   add_foreign_key "invoice_accounts", "addresses", column: "postal_address_id"
+  add_foreign_key "partners", "accounts"
+  add_foreign_key "partners", "invoice_accounts", column: "client_id"
 end
