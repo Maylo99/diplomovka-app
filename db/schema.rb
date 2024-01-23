@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_23_142135) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_23_153919) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_23_142135) do
     t.index ["postal_address_id"], name: "index_invoice_accounts_on_postal_address_id"
   end
 
+  create_table "invoices", force: :cascade do |t|
+    t.date "issue_date"
+    t.date "delivery_date"
+    t.date "due_date"
+    t.string "number"
+    t.string "payment_method"
+    t.string "variable_symbol"
+    t.string "order_number"
+    t.bigint "purchaser_id"
+    t.bigint "supplier_id"
+    t.bigint "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_invoices_on_account_id"
+    t.index ["purchaser_id"], name: "index_invoices_on_purchaser_id"
+    t.index ["supplier_id"], name: "index_invoices_on_supplier_id"
+  end
+
   create_table "partners", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "client_id", null: false
@@ -108,6 +126,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_23_142135) do
   add_foreign_key "bank_accounts", "accounts"
   add_foreign_key "invoice_accounts", "addresses", column: "invoice_address_id"
   add_foreign_key "invoice_accounts", "addresses", column: "postal_address_id"
+  add_foreign_key "invoices", "accounts"
+  add_foreign_key "invoices", "invoice_accounts", column: "purchaser_id"
+  add_foreign_key "invoices", "invoice_accounts", column: "supplier_id"
   add_foreign_key "partners", "accounts"
   add_foreign_key "partners", "invoice_accounts", column: "client_id"
 end
