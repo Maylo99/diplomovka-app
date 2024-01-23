@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     member do
       resources :bank_accounts
       resources :partners
+      resources :invoices
     end
   end
   # Defines the root path route ("/")

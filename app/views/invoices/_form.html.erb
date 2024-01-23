@@ -1,0 +1,88 @@
+<%= form_with(model: invoice, url: url) do |form| %>
+
+  <div>
+    <%= form.label :number, "Číslo faktúry", style: "display: block" %>
+    <%= form.text_field :number %>
+    <%= render "shared/error_form_field", object: invoice, field: :number %>
+  </div>
+
+  <div>
+    <%= form.label :client, "Vyber klienta", style: "display: block" %>
+    <%= form.select :client, @account.partners.collect { |c| [c.name, c.client.id] } %>
+    <%= render "shared/error_form_field", object: invoice, field: :number %>
+  </div>
+
+  <div>
+    <%= form.label :issue_date, "Dátum vystavenia", style: "display: block" %>
+    <%= form.date_field :issue_date %>
+    <%= render "shared/error_form_field", object: invoice, field: :issue_date %>
+  </div>
+
+  <div>
+    <%= form.label :delivery_date, "Dátum dodania", style: "display: block" %>
+    <%= form.date_field :delivery_date %>
+    <%= render "shared/error_form_field", object: invoice, field: :delivery_date %>
+  </div>
+
+  <div>
+    <%= form.label :due_date, "Dátum splatnosti", style: "display: block" %>
+    <%= form.date_field :due_date %>
+    <%= render "shared/error_form_field", object: invoice, field: :due_date %>
+  </div>
+
+  <div>
+    <%= form.label :payment_method, "Platobná metóda", style: "display: block" %>
+    <%= form.select :payment_method, Invoice.payment_methods.collect { |k, v| [v, v] } %>
+    <%= render "shared/error_form_field", object: invoice, field: :payment_method %>
+  </div>
+
+  <div>
+    <%= form.label :variable_symbol, "Variabilný symbol", style: "display: block" %>
+    <%= form.text_field :variable_symbol %>
+    <%= render "shared/error_form_field", object: invoice, field: :variable_symbol %>
+  </div>
+
+  <div>
+    <%= form.label :order_number, "Číslo objednávky", style: "display: block" %>
+    <%= form.text_field :order_number %>
+    <%= render "shared/error_form_field", object: invoice, field: :order_number %>
+  </div>
+
+
+  <div data-controller="form--fields-for">
+    <div class="d-flex card">
+      <!-- header -->
+      <div>
+        <div>Fakturované položky</div>
+        <div class="row">
+          <div class="col">Názov</div>
+          <div class="col">Počet</div>
+          <div class="col">MJ</div>
+          <div class="col">Cena za jednotku</div>
+          <div class="col">Cena celkom</div>
+          <div class="col">DPH</div>
+          <div class="col">Cena s DPH</div>
+          <div class="col">Vymaž položku</div>
+        </div>
+      </div>
+      <!-- body -->
+      <!-- TODO: wrap to div -->
+      <%= form.fields_for :invoice_items do |invoice_items_form| %>
+
+        <%= render 'invoices/invoice_items/invoice_items_fields', form: invoice_items_form %>
+      <% end %>
+      <div>
+        <%= button_tag("Add invoice item", {
+          data: {
+            action: "form--fields-for#add",
+            fields: form.fields_for(:invoice_items, InvoiceItem.new, child_index: "new_field") { |document_item_add_form| render("invoices/invoice_items/invoice_items_fields", form: document_item_add_form) }
+          }}) %>
+      </div>
+      <!-- footer -->
+    </div>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import Form__FieldsForController from "./form/fields_for_controller"
+application.register("form--fields-for", Form__FieldsForController)
+
 import Form__ToggleVisibilityController from "./form/toggle_visibility_controller"
 application.register("form--toggle-visibility", Form__ToggleVisibilityController)
 
