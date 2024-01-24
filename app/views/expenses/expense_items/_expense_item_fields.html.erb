@@ -1,0 +1,31 @@
+<div class="row" data-target="fields-for.fields">
+
+  <div class="col">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+    <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s+ ".name" %>
+  </div>
+
+  <div class="col">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity %>
+    <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s+ ".quantity" %>
+  </div>
+
+  <div class="col">
+    <%= form.label :vat_rate %>
+    <%= form.number_field :vat_rate %>
+    <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s+ ".vat_rate" %>
+  </div>
+
+  <div class="col">
+    <%= form.label :unit_price%>
+    <%= form.number_field :unit_price %>
+    <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s+ ".unit_price" %>
+  </div>
+
+  <div class="col">
+    <%= form.label :destroy %>
+    <%= form.check_box :_destroy, { data: { action: "form--fields-for#hide" } } %>
+  </div>
+</div>

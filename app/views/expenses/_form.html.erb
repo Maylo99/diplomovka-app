@@ -29,14 +29,6 @@
     <%= render "shared/error_form_field", object: expense, field: :receipt_number %>
   </div>
 
-<!--  <div data-controller="form--fields-for">-->
-<!--    <strong>Položka</strong>-->
-    <%#=form.fields_for :expense_items do |expense_items_form| %>
-      <%#= render "expenses/expense_items/expense_item_fields", form: expense_items_form%>
-    <%# end %>
-    <%#= button_tag "Pridaj položku", { data: { action: "form--fields-for#add", fields: form.fields_for(:expense_items, ExpenseItem.new, child_index: "new_field") { |expense_items_form|  render "expenses/expense_items/expense_item_fields", form: expense_items_form, expense_item: ExpenseItem.first  } } }) %>
-<!--  </div>-->
-
   <div>
     <strong>Adresa pobočky</strong>
     <%=fields_for :unit,@unit_address do |unit_form|%>
@@ -56,6 +48,23 @@
     <%=fields_for :address,@address do |unit_form|%>
       <%=render "addresses/address_fields", address_form: unit_form, object: @address %>
     <%end %>
+  </div>
+
+  <div data-controller="form--fields-for">
+    <div>
+      <div>Fakturované položky</div>
+      <div class="row">
+        <div class="col">Názov</div>
+        <div class="col">Počet</div>
+        <div class="col">Sadzba DPH"</div>
+        <div class="col">Cena za jednotku</div>
+        <div class="col">Vymaž položku</div>
+      </div>
+    </div>
+    <%=form.fields_for :expense_items do |expense_items_form| %>
+      <%= render "expenses/expense_items/expense_item_fields", form: expense_items_form%>
+    <% end %>
+    <%= button_tag("Pridaj položku", { data: { action: "form--fields-for#add", fields: form.fields_for(:expense_items, ExpenseItem.new, child_index: "new_field") { |expense_items_form|  render "expenses/expense_items/expense_item_fields", form: expense_items_form, expense_item: ExpenseItem.first  } } }) %>
   </div>
 
   <div>

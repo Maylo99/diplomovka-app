@@ -16,7 +16,7 @@ class ExpensesController < ApplicationController
   # GET /expenses/new
   def new
     @expense = Expense.new
-    # @expense_item = @expense.expense_items.build
+    @expense_item = @expense.expense_items.build
     @unit_address = Address.new
     @invoice_account = InvoiceAccount.new
     @address = Address.new
@@ -109,6 +109,7 @@ class ExpensesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def expense_params
-    params.require(:expense).permit(:receipt_id, :cash_register_code, :issue_date, :okp, :receipt_number)
+    params.require(:expense).permit(:receipt_id, :cash_register_code, :issue_date, :okp, :receipt_number,
+                                    expense_items_attributes: [:id, :name, :quantity, :vat_rate, :unit_price, :_destroy])
   end
 end
