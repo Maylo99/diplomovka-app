@@ -1,5 +1,6 @@
 class BankAccount < ApplicationRecord
-  belongs_to :account
+  belongs_to :account, optional: true
+  has_many :invoice_bank_accounts
 
   def unmap_account_id
     account=account_id
