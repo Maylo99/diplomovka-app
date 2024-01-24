@@ -45,7 +45,8 @@ class InvoicesController < ApplicationController
         unless @invoice.save
           raise ActiveRecord::RecordInvalid
         end
-        # DocumentBankAccounts::DocumentBankAccountBuilder.call(@bank_account_id, @invoice.id) #TODO: toto asi iba pre prihlaseneho uzivatela?
+        InvoiceBankAccount.create(bank_account_id:params[:invoice][:bank_account_id], invoice_id: @invoice.id)
+
       rescue ActiveRecord::RecordInvalid
         @invoice.validate
       end
@@ -64,6 +65,7 @@ class InvoicesController < ApplicationController
   def update
     respond_to do |format|
       if @invoice.update(invoice_params.merge(purchaser_id: params[:invoice][:client]))
+        @invoice.invoice_bank_accounts.first.update(bank_account_id: params[:invoice][:bank_account_id])
         format.html { redirect_to invoice_url(@account,@invoice), notice: "Invoice was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }

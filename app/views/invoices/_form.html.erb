@@ -37,6 +37,13 @@
   </div>
 
   <div>
+    <%= form.label :bank_account_id, "Bankový účet", style: "display: block" %>
+      <%= form.select(:bank_account_id,
+                      options_for_select(BankAccount.my_bank_accounts(@account)
+                                                    .collect { |ba| [ba.name, ba.id] }, invoice.invoice_bank_accounts.first&.bank_account_id),{}) %>
+  </div>
+
+  <div>
     <%= form.label :variable_symbol, "Variabilný symbol", style: "display: block" %>
     <%= form.text_field :variable_symbol %>
     <%= render "shared/error_form_field", object: invoice, field: :variable_symbol %>
