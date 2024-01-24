@@ -1,4 +1,5 @@
 class InvoiceAccount < ApplicationRecord
+  has_many :expenses
   has_many :accounts
   has_many :partners
   has_many :purchaser, foreign_key: 'supplier_id', class_name: 'Invoice'

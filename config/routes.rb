@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :accounts
   devise_for :users, controllers: {
         sessions: 'users/sessions',
         registrations: 'users/registrations',
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :accounts, param: :account_id do
     member do
+      resources :expenses
       resources :bank_accounts
       resources :partners
       resources :invoices

@@ -1,0 +1,64 @@
+<%= form_with(model: expense, url: url) do |form| %>
+  <div>
+    <%= form.label :receipt_id, style: "display: block" %>
+    <%= form.text_field :receipt_id %>
+    <%= render "shared/error_form_field", object: expense, field: :receipt_id %>
+  </div>
+
+  <div>
+    <%= form.label :cash_register_code, style: "display: block" %>
+    <%= form.text_field :cash_register_code %>
+    <%= render "shared/error_form_field", object: expense, field: :cash_register_code %>
+  </div>
+
+  <div>
+    <%= form.label :issue_date, style: "display: block" %>
+    <%= form.date_field :issue_date %>
+    <%= render "shared/error_form_field", object: expense, field: :issue_date %>
+  </div>
+
+  <div>
+    <%= form.label :okp, style: "display: block" %>
+    <%= form.text_field :okp %>
+    <%= render "shared/error_form_field", object: expense, field: :okp %>
+  </div>
+
+  <div>
+    <%= form.label :receipt_number, style: "display: block" %>
+    <%= form.text_field :receipt_number %>
+    <%= render "shared/error_form_field", object: expense, field: :receipt_number %>
+  </div>
+
+<!--  <div data-controller="form--fields-for">-->
+<!--    <strong>Položka</strong>-->
+    <%#=form.fields_for :expense_items do |expense_items_form| %>
+      <%#= render "expenses/expense_items/expense_item_fields", form: expense_items_form%>
+    <%# end %>
+    <%#= button_tag "Pridaj položku", { data: { action: "form--fields-for#add", fields: form.fields_for(:expense_items, ExpenseItem.new, child_index: "new_field") { |expense_items_form|  render "expenses/expense_items/expense_item_fields", form: expense_items_form, expense_item: ExpenseItem.first  } } }) %>
+<!--  </div>-->
+
+  <div>
+    <strong>Adresa pobočky</strong>
+    <%=fields_for :unit,@unit_address do |unit_form|%>
+      <%=render "addresses/address_fields", address_form: unit_form, object: @unit_address %>
+    <%end %>
+  </div>
+
+  <div>
+    <strong>Faktúračný účet</strong>
+    <%=fields_for :invoice_account,@invoice_account do |unit_form|%>
+      <%=render "invoice_accounts/invoice_accounts_fields", invoice_account_form: unit_form, object: @invoice_account %>
+    <%end %>
+  </div>
+
+  <div>
+    <strong>Faktúračná adresa</strong>
+    <%=fields_for :address,@address do |unit_form|%>
+      <%=render "addresses/address_fields", address_form: unit_form, object: @address %>
+    <%end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
