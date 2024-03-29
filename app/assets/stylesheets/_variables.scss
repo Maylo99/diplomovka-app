@@ -1,0 +1,101 @@
+$variable-prefix: lc-;
+$font-family-sans-serif: 'InterVariable', 'system-ui';
+
+//$blue: #0090d0;
+$purple: #3D249E;
+$green: #0157b4;
+$orange: #ff7f41;
+$red: #B80546;
+
+//$gray-600: #706D79;
+
+$primary: $purple;
+$secondary: #706D79;
+$success: $green;
+$warning: $orange;
+$danger: $red;
+
+// Typography
+$font-size-root: 62.5%;
+$font-size-base: 1.4rem;
+//$line-height-base: 1.5;
+//$font-weight-bold: 600;
+
+// Button
+$btn-border-radius:           1.6rem;
+$btn-font-weight: 500;
+
+
+// Nav
+$nav-link-font-size:                1.4rem;
+$nav-link-font-weight:              500;
+$nav-tabs-border-radius:            0.8rem;
+$nav-tabs-link-active-bg:           #ff6347;
+$nav-tabs-link-active-border-color: #4787ff;
+
+// button
+$btn-padding-y:               0.45rem; // TODO: 0.6rem ak sa upravi line-height
+$btn-padding-x:               1.6rem;
+
+$btn-padding-y-lg:            1.05rem;
+$btn-padding-x-lg:            1.6rem;
+$btn-font-size-lg:            1.4rem;
+
+$btn-border-radius:           4.8rem;
+$btn-border-radius-sm:        4.8rem;
+$btn-border-radius-lg:        4.8rem;
+
+
+// form controls
+// scss-docs-start form-label-variables
+$form-label-margin-bottom:              0.4rem;
+$form-label-font-size:                  1.3rem;
+$form-label-font-weight:                500;
+$form-label-color:                      #706D79;
+
+// scss-docs-start form-input-variables
+//$input-color:                           var(--#{$prefix}body-color) !default;
+$input-border-color:                    #E2E6ED;
+
+$input-padding-y:                       0.45rem;
+$input-padding-x:                       1.2rem;
+//$input-font-family:                     $input-btn-font-family !default;
+//$input-font-size:                       $input-btn-font-size !default;
+//$input-font-weight:                     $font-weight-base !default;
+//$input-line-height:                     1.7;
+$input-box-shadow:                      0px 1px 2px rgba(16, 24, 40, 0.05);
+$input-border-radius:                   0.8rem;
+
+$input-placeholder-color:               #B2B7BE;
+
+// checkbox
+$form-check-input-width:                  1.2em;
+
+
+// badge
+$badge-padding-x: 0.8rem;
+$badge-padding-y: 0.2rem;
+$badge-font-size: 1.1rem;
+$badge-font-weight: 400;
+$badge-border-radius: 0.6rem;
+
+// alert
+$alert-border-radius: 1.2rem;
+$alert-padding-x: 1.6rem;
+$alert-padding-y: 1.6rem;
+$alert-margin-bottom: 0;
+$alert-bg: white;
+
+
+
+
+// lucanto custom
+$lc-primary: #3D3D46;
+$lc-secondary: #75737A;
+$lc-disabled: #B2B7BE;
+$lc-success: #189568;
+//$lc-warning: #ff7f41;
+$lc-danger: #B80546;
+
+$lc-border-radius: 1.6rem;
+$lc-border-color: #D8D9E3;
