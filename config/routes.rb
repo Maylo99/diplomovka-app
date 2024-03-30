@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  resources :accounts, param: :account_id do
+  resources :accounts, param: :account_id, except: :show do
     member do
       resources :expenses
       resources :bank_accounts, except: :show
