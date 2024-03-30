@@ -1,36 +1,56 @@
-<%= form_with(model: bank_account) do |form| %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+<%= form_with(model: bank_account, id: "bank_account_form") do |form| %>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <%= form.label :name,"Názov účtu", class: "form-label" %>
+      <%= form.text_field :name, class: "form-control" %>
+      <%= render "shared/error_form_field", object: bank_account, field: :name %>
+    </div>
+    <div class="col-3"></div>
   </div>
-
-  <div>
-    <%= form.label :currency, style: "display: block" %>
-    <%= form.text_field :currency %>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <%= form.label :currency,"Mena", class: "form-label" %>
+      <%= form.text_field :currency, class: "form-control" %>
+      <%= render "shared/error_form_field", object: bank_account, field: :currency %>
+    </div>
+    <div class="col-3"></div>
   </div>
-
-  <div>
-    <%= form.label :iban, style: "display: block" %>
-    <%= form.text_field :iban %>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <%= form.label :iban,"IBAN", class: "form-label" %>
+      <%= form.text_field :iban, class: "form-control" %>
+      <%= render "shared/error_form_field", object: bank_account, field: :iban %>
+    </div>
+    <div class="col-3"></div>
   </div>
-
-  <div>
-    <%= form.label :swift_code, style: "display: block" %>
-    <%= form.text_field :swift_code %>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <%= form.label :swift_code, "Swift kód",class: "form-label" %>
+      <%= form.text_field :swift_code, class: "form-control" %>
+      <%= render "shared/error_form_field", object: bank_account, field: :swift_code %>
+    </div>
+    <div class="col-3"></div>
   </div>
-
-  <div>
-    <%= form.label :account_number, style: "display: block" %>
-    <%= form.text_field :account_number %>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <%= form.label :account_number,"Číslo účtu", class: "form-label" %>
+      <%= form.text_field :account_number, class: "form-control" %>
+      <%= render "shared/error_form_field", object: bank_account, field: :account_number %>
+    </div>
+    <div class="col-3"></div>
   </div>
-
-  <div>
-    <%= form.label :bank_code, style: "display: block" %>
-    <%= form.text_field :bank_code %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <%= form.label :bank_code,"Kód banky",class: "form-label" %>
+      <%= form.text_field :bank_code, class: "form-control" %>
+      <%= render "shared/error_form_field", object: bank_account, field: :bank_code %>
+    </div>
+    <div class="col-3"></div>
   </div>
 <% end %>
