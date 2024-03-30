@@ -10,10 +10,6 @@ class PartnersController < ApplicationController
     @partners =@account.partners
   end
 
-  # GET /partners/1 or /partners/1.json
-  def show
-  end
-
   # GET /partners/new
   def new
     @partner = @account.partners.build
