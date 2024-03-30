@@ -1,10 +1,12 @@
-<h1>Editing bank account</h1>
+<% content_for :page_header do %>
+  <%= button_tag(type: 'submit', class: 'btn btn-sm btn-primary d-flex align-items-center justify-content-center ', form: 'bank_account_form') do %>
+    <%= material_icon.shape(:save).outlined %>
+    <span class="ms-2">Uložiť zmeny</span>
+  <% end %>
+<% end %>
+<%= render 'shared/page_header', title: "Uprav bankový účet #{@bank_account.name}" %>
 
-<%= render "form", bank_account: @bank_account %>
-
-<br>
-
-<div>
-  <%= link_to "Show this bank account", @bank_account %> |
-  <%= link_to "Back to bank accounts", bank_accounts_path %>
-</div>
+<% content_for :page_body do %>
+  <%= render "form", bank_account: @bank_account %>
+<% end %>
+<%= render 'shared/page_body' %>
