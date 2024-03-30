@@ -1,0 +1,9 @@
+<tr id=<%=dom_id(account) %>>
+  <td><%= c %></td>
+  <td><%= account.name %></td>
+  <td><%= account.invoice_account.registration_id %></td>
+  <td><%= account.invoice_account.tax_id %></td>
+  <td><%= account.invoice_account.invoice_address.city %></td>
+  <td><%= account.invoice_account.phone_number %></td>
+  <td class="text-end"><%= render "account_drop_down", account: account %></td>
+</tr>

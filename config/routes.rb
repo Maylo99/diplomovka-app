@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :users, except: [:new, :create, :index, :destroy,:show], as: 'profile'
-  resources :accounts, param: :account_id do
+  resources :accounts, param: :account_id, except: :show do
     member do
       resources :expenses, except: :show
       resources :bank_accounts, except: :show
@@ -16,5 +16,6 @@ Rails.application.routes.draw do
     end
   end
   # Defines the root path route ("/")
+
    root "accounts#index"
 end
