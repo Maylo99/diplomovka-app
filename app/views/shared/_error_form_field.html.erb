@@ -1,6 +1,7 @@
-<div class="text-danger">
-  <%object.errors.full_messages_for(field).each do |err| %>
-      <%=err%>
-      <br>
-  <%end %>
-</div>
+<% if object.errors[field].any? %>
+  <div class="text-danger" id="<%=object.class.to_s.downcase%>_<%=field%>_error">
+    <% object.errors.full_messages_for(field).each do |err| %>
+      <%= err %><br>
+    <% end %>
+  </div>
+<% end %>

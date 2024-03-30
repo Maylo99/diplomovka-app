@@ -1,0 +1,10 @@
+<div id="flash_messages">
+  <% flash.each do |key, message| %>
+  <% unless message.nil? %>
+  <div class="alert mt-4" role="alert">
+    <%= message.html_safe %>
+  </div>
+  <% end %>
+  <% end %>
+  <%flash.clear%>
+</div>
