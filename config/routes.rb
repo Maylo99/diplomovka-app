@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :accounts, param: :account_id do
     member do
-      resources :expenses
+      resources :expenses, except: :show
       resources :bank_accounts, except: :show
       resources :partners, except: :show
       resources :invoices
