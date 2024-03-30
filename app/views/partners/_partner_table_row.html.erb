@@ -1,0 +1,9 @@
+<tr id=<%=dom_id(partner) %>>
+  <td><%= c %></td>
+  <td><%= partner.client.invoice_address.name %></td>
+  <td><%= partner.client.registration_id %></td>
+  <td><%= partner.client.tax_id %></td>
+  <td><%= partner.client.invoice_address.city %></td>
+  <td><%= partner.client.phone_number %></td>
+  <td class="text-end"><%= render "partner_dropdown", account: account, partner: partner %></td>
+</tr>

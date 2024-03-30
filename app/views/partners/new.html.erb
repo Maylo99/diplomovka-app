@@ -1,9 +1,11 @@
-<h1>New partner</h1>
-
-<%= render "form", partner: @partner, url: partners_path %>
-
-<br>
-
-<div>
-  <%= link_to "Back to partners", partners_path %>
-</div>
+<% content_for :page_header do %>
+  <%= button_tag(type: 'submit', class: 'btn btn-sm btn-primary d-flex align-items-center justify-content-center text-dark', form: 'partner_form') do %>
+    <%= material_icon.shape(:save).outlined %>
+    <span class="ms-2">Uložiť zmeny</span>
+  <% end %>
+<% end %>
+<%= render 'shared/page_header', title: "Nový partner" %>
+<% content_for :page_body do %>
+  <%= render "form", partner: @partner, url: partners_path %>
+<% end %>
+<%= render 'shared/page_body' %>

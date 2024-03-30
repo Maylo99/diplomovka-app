@@ -1,14 +1,30 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Partners</h1>
-
-<div id="partners">
-  <% @partners.each do |partner| %>
-    <%= render partner %>
-    <p>
-      <%= link_to "Show this partner", partner_path(@account,partner) %>
-    </p>
+<% content_for :page_header do %>
+  <%= link_to new_partner_path(@account), method: :get, class: "btn btn-primary d-flex align-items-center justify-content-center" do %>
+    <%= material_icon.shape(:add).outlined %>
+    <%= "Nový partner" %>
   <% end %>
-</div>
-
-<%= link_to "New partner", new_partner_path %>
+<% end %>
+<%= render 'shared/page_header', title: "Moji parneri" %>
+<% content_for :page_body do %>
+    <table class="table table-striped table-hover table-responsive ">
+      <thead class="">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Názov klienta</th>
+        <th scope="col">IČO</th>
+        <th scope="col">DIČ</th>
+        <th scope="col" class="">Mesto</th>
+        <th scope="col" class="">Kontakt</th>
+        <th scope="col" class="text-end">Možnosti</th>
+      </tr>
+      </thead>
+      <tbody class="">
+      <%c=0 %>
+      <% @partners.each do |partner| %>
+        <%= render "partner_table_row", partner: partner, account: @account,c: c  %>
+        <%c+=1%>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+<%= render 'shared/page_body' %>
