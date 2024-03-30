@@ -1,0 +1,9 @@
+<tr id=<%=dom_id(bank_account) %>>
+  <td><%= c %></td>
+  <td><%= bank_account.name %></td>
+  <td><%= bank_account.iban %></td>
+  <td><%=bank_account.account_number %></td>
+  <td><%= bank_account.bank_code %></td>
+  <td><%= bank_account.currency%></td>
+  <td class="text-end"><%= render "bank_account_drop_down", account: account, bank_account: bank_account %></td>
+</tr>
