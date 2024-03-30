@@ -1,14 +1,31 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Invoices</h1>
-
-<div id="invoices">
-  <% @invoices.each do |invoice| %>
-    <%= render invoice %>
-    <p>
-      <%= link_to "Show this invoice", invoice_path(@account,invoice) %>
-    </p>
+<% content_for :page_header do %>
+  <%= link_to new_invoice_path(@account), method: :get, class: "btn btn-primary d-flex align-items-center justify-content-center" do %>
+    <%= material_icon.shape(:add).outlined %>
+    <%= "Nová faktúra" %>
   <% end %>
-</div>
-
-<%= link_to "New invoice", new_invoice_path %>
+<% end %>
+<%= render 'shared/page_header', title: "Moje bankové účty" %>
+<% content_for :page_body do %>
+  <table class="table table-striped table-hover table-responsive ">
+    <thead class="">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Číslo faktúry</th>
+      <th scope="col">Odberateľ/dodávatel</th>
+      <th scope="col">Dátum vystavenia</th>
+      <th scope="col" class="">Dátum dodania</th>
+      <th scope="col" class="">Spôsob platby</th>
+      <th scope="col" class="">Variabilný symbol</th>
+      <th scope="col" class="text-end">Možnosti</th>
+    </tr>
+    </thead>
+    <tbody class="">
+    <%c=0 %>
+    <% @invoices.each do |invoice| %>
+      <%= render "invoice_table_row", invoice: invoice, account: @account,c: c  %>
+      <%c+=1%>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+<%= render 'shared/page_body' %>
