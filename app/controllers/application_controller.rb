@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :require_login
+  before_action :set_last_accessed_account
 
 
   def set_account
@@ -10,6 +11,24 @@ class ApplicationController < ActionController::Base
     else
       account_id_in_url_logic(account_id)
     end
+  end
+
+  def set_last_accessed_account
+    return unless current_user
+    account_id = params[:account_id]
+    if valid_account_id?(account_id) && user_has_access_to_account?(account_id)
+      session[:last_accessed_account_id] = account_id
+    end
+    @account_id = session[:last_accessed_account_id] || current_user.default_account&.id
+  end
+
+  private
+  def valid_account_id?(account_id)
+    account_id.to_i.to_s == account_id && account_id.to_i.positive?
+  end
+
+  def user_has_access_to_account?(account_id)
+    UserAccount.exists?(user_id: current_user.id, account_id:)
   end
 
   def account_id_in_url_logic(account_id)
@@ -26,7 +45,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private
   def require_login
     unless current_user
       redirect_to new_user_session_path
