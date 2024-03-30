@@ -38,9 +38,9 @@
 
   <div>
     <%= form.label :bank_account_id, "Bankový účet", style: "display: block" %>
-      <%= form.select(:bank_account_id,
-                      options_for_select(BankAccount.my_bank_accounts(@account)
-                                                    .collect { |ba| [ba.name, ba.id] }, invoice.invoice_bank_accounts.first&.bank_account_id),{}) %>
+    <%= form.select(:bank_account_id,
+                    options_for_select(BankAccount.my_bank_accounts(@account)
+                                                  .collect { |ba| [ba.name, ba.id] }, invoice.invoice_bank_accounts.first&.bank_account_id), {}) %>
   </div>
 
   <div>
@@ -55,6 +55,19 @@
     <%= render "shared/error_form_field", object: invoice, field: :order_number %>
   </div>
 
+  <%= form.text_field :vat_rate, class: 'form-control form-control--invoice-item', data: {
+    target: 'invoices--invoice-item.VAT',
+    action: 'input->invoices--invoice-item#calculateTotalVAT'
+  } %>
+
+  <div data-controller="semantic-search">
+    <%= form.label :test, "semantic", style: "display: block" %>
+    <%= form.text_field :test, data:{semantic_search_target: "expression",
+                                     action: "input->semantic-search#search"} %>
+    <input type="checkbox" id="automatic" name="automatic" data-semantic-search-target="automatic" data-action="change->semantic-search#search" />
+    <%= form.select :testik, {},{},data:{semantic_search_target: "selectAccount"} %>
+    <%= form.text_field :testik,data:{semantic_search_target: "inputAccount"} %>
+  </div>
 
   <div data-controller="form--fields-for">
     <div class="d-flex card">
@@ -83,7 +96,7 @@
           data: {
             action: "form--fields-for#add",
             fields: form.fields_for(:invoice_items, InvoiceItem.new, child_index: "new_field") { |document_item_add_form| render("invoices/invoice_items/invoice_items_fields", form: document_item_add_form) }
-          }}) %>
+          } }) %>
       </div>
       <!-- footer -->
     </div>
