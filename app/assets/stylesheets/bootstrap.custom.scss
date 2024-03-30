@@ -73,3 +73,26 @@
 // Utilities
 @import "bootstrap/scss/utilities/api";
 // scss-docs-end import-stack
+
+@media (min-width: 992px) {
+  .navbar,
+  .navbar-collapse {
+    flex-direction: column;
+  }
+  .navbar-expand-lg .navbar-nav {
+    flex-direction: column;
+  }
+  .navbar {
+    width: 13%;
+    height: 100vh;
+    align-items: flex-start;
+  }
+  .navbar-brand {
+    margin-left: 0.5em;
+    padding-bottom: 0;
+    border-bottom: 4px solid #464646;
+  }
+  form input {
+    margin-bottom: 0.7em;
+  }
+}

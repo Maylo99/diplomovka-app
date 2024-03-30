@@ -1,35 +1,41 @@
-<div>
-  <%= invoice_account_form.label :vat_payer_type, "Registrácia na DPH" %>
-  <%= invoice_account_form.select :vat_payer_type, InvoiceAccount.vat_payer_types.collect { |k, v| [v, v] } %>
-  <%= render "shared/error_form_field", object: object, field: :vat_payer_type %>
+<div class="row">
+  <div class="col-8">
+    <%= invoice_account_form.label :tax_id, "DIČ", class: "form-label" %>
+    <%= invoice_account_form.text_field :tax_id,class: "form-control" %>
+    <%= render "shared/error_form_field", object: object, field: :tax_id %>
+  </div>
+  <div class="col-4">
+    <%= invoice_account_form.label :registration_id, "IČO", class: "form-label" %>
+    <%= invoice_account_form.text_field :registration_id,class: "form-control" %>
+    <%= render "shared/error_form_field", object: object, field: :registration_id %>
+  </div>
 </div>
-<div>
-  <%= invoice_account_form.label :registration_id, "IČO" %>
-  <%= invoice_account_form.text_field :registration_id %>
-  <%= render "shared/error_form_field", object: object, field: :registration_id %>
+<div class="row">
+  <div class="col-4">
+    <%= invoice_account_form.label :vat_payer_type, "Registrácia na DPH", class: "form-label" %>
+    <%= invoice_account_form.select :vat_payer_type, InvoiceAccount.vat_payer_types.collect { |k, v| [v, v] },{},class: "form-select" %>
+    <%= render "shared/error_form_field", object: object, field: :vat_payer_type %>
+  </div>
+  <div class="col-4">
+    <%= invoice_account_form.label :vat_id, "IČ DPH", class: "form-label" %>
+    <%= invoice_account_form.text_field :vat_id,class: "form-control"  %>
+    <%= render "shared/error_form_field", object: object, field: :vat_id %>
+  </div>
+  <div class="col-4">
+    <%= invoice_account_form.label :phone_number, "Telefónny kontakt", class: "form-label" %>
+    <%= invoice_account_form.text_field :phone_number,class: "form-control"  %>
+    <%= render "shared/error_form_field", object: object, field: :phone_number %>
+  </div>
 </div>
-<div>
-  <%= invoice_account_form.label :tax_id, "DIČ" %>
-  <%= invoice_account_form.text_field :tax_id %>
-  <%= render "shared/error_form_field", object: object, field: :tax_id %>
-</div>
-<div>
-  <%= invoice_account_form.label :vat_id, "IČ DPH" %>
-  <%= invoice_account_form.text_field :vat_id %>
-  <%= render "shared/error_form_field", object: object, field: :vat_id %>
-</div>
-<div>
-  <%= invoice_account_form.label :phone_number, "Telefónny kontakt" %>
-  <%= invoice_account_form.text_field :phone_number %>
-  <%= render "shared/error_form_field", object: object, field: :phone_number %>
-</div>
-<div>
-  <%= invoice_account_form.label :email, "Email" %>
-  <%= invoice_account_form.text_field :email %>
-  <%= render "shared/error_form_field", object: object, field: :email %>
-</div>
-<div>
-  <%= invoice_account_form.label :web, "Web" %>
-  <%= invoice_account_form.text_field :web %>
-  <%= render "shared/error_form_field", object: object, field: :web %>
+<div class="row">
+  <div class="col-4">
+    <%= invoice_account_form.label :email, "Email", class: "form-label" %>
+    <%= invoice_account_form.text_field :email,class: "form-control"  %>
+    <%= render "shared/error_form_field", object: object, field: :email %>
+  </div>
+  <div class="col-4">
+    <%= invoice_account_form.label :web, "Web", class: "form-label" %>
+    <%= invoice_account_form.text_field :web,class: "form-control"  %>
+    <%= render "shared/error_form_field", object: object, field: :web %>
+  </div>
 </div>
