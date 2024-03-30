@@ -36,13 +36,13 @@
   <% end %>
 
   <%= fields_for :invoice_address, @invoice_address do |invoice_address_form| %>
-    <%= render "addresses/address_fields", address_form: invoice_address_form, object: @invoice_address %>
+    <%= render "addresses/address_fields", address_form: invoice_address_form, object: @invoice_address,address_type: "Faktúračná adresa" %>
   <% end %>
 
   <div data-controller="form--toggle-visibility">
     <div data-form--toggle-visibility-target="toggleElement">
       <%= fields_for :postal_address, @postal_address do |postal_address_form| %>
-        <%= render "addresses/address_fields", address_form: postal_address_form, object: @postal_address %>
+        <%= render "addresses/address_fields", address_form: postal_address_form, object: @postal_address,address_type: "Poštová adresa" %>
       <% end %>
       <div class="form-check">
         <%= form.check_box :address_match, { checked: !@postal_address.persisted?, data: {
