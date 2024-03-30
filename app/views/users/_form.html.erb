@@ -1,0 +1,45 @@
+<%= form_with(model: user, url: url, id: "user_form") do |form| %>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <%= form.label :email, "Email", class: 'form-label' %>
+      <%= form.text_field :actual_password, disabled: true,value: user.email, class: 'form-control' %>
+      <%= render "shared/error_form_field", object: user, field: :email %>
+    </div>
+    <div class="col-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <h3>Zmeň svoje heslo</h3>
+    </div>
+    <div class="col-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <%= form.label :actual_password,"Zadaj svoje aktuálne heslo", class: 'form-label' %>
+      <%= form.password_field :actual_password, class: 'form-control' %>
+      <%= render "shared/error_form_field", object: user, field: :actual_password %>
+    </div>
+    <div class="col-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <%= form.label :password,"Nové heslo", autocomplete: "new-password", class: 'form-label' %>
+      <%= form.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+      <%= render "shared/error_form_field", object: user, field: :password %>
+    </div>
+    <div class="col-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <%= form.label :password_confirmation,"Zopakuj nové heslo", class: 'form-label' %>
+      <%= form.password_field :password_confirmation, class: 'form-control' %>
+      <%= render "shared/error_form_field", object: user, field: :password_confirmation %>
+    </div>
+    <div class="col-3"></div>
+  </div>
+<% end %>
