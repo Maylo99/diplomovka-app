@@ -1,0 +1,11 @@
+<div class="dropdown">
+  <button class="btn ra-dropdown-btn dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%= material_icon.shape(:more_horiz).outlined %>
+  </button>
+  <div class="dropdown-menu text-center" aria-labelledby="dropdownMenu2">
+    <%=link_to "Upraviť faktúru",edit_invoice_path(account,invoice), class: "dropdown-item" %>
+    <%= button_to invoice_path(account, invoice), method: :delete, class: "dropdown-item text-danger align-items-center", type: "button" do %>
+      <%= material_icon.shape(:delete).outlined %> <span>Vymaž faktúru</span>
+    <% end %>
+  </div>
+</div>

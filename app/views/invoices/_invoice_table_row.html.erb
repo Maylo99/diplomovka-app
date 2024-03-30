@@ -1,0 +1,10 @@
+<tr id=<%=dom_id(invoice) %>>
+  <td><%= c %></td>
+  <td><%= invoice.number %></td>
+  <td><%= invoice.purchaser.invoice_address.name%></td>
+  <td><%= invoice.issue_date %></td>
+  <td><%=invoice.delivery_date  %></td>
+  <td><%= invoice.payment_method%></td>
+  <td><%= invoice.variable_symbol %></td>
+  <td class="text-end"><%= render "invoices/invoice_drop_down", account: account, invoice:invoice %></td>
+</tr>
