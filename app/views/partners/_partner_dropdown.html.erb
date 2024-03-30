@@ -1,0 +1,28 @@
+<!--<div class="dropdown d-inline-block">-->
+<!--  <button class="btn btn-tertiary btn-toggle dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+    <%#= material_icon.shape(:more_horiz).outlined %>
+<!--  </button>-->
+<!--  <ul class="dropdown-menu">-->
+<!--    <li>-->
+      <%#=link_to "Upraviť partnera",edit_partner_path(account,partner), class: "dropdown-item" %>
+<!--    </li>-->
+<!--    <li><hr class="dropdown-divider"></li>-->
+<!--    <li>-->
+      <%#= button_to partner_path(account, partner), method: :delete, class: "dropdown-item text-danger", type: "button" do %>
+<!--        <%#= material_icon.shape(:delete).outlined %> Vymaž klienta-->
+      <%# end %>
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+<div class="dropdown">
+  <button class="btn ra-dropdown-btn dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%= material_icon.shape(:more_horiz).outlined %>
+  </button>
+  <div class="dropdown-menu text-center" aria-labelledby="dropdownMenu2">
+    <%=link_to "Upraviť partnera",edit_partner_path(account,partner), class: "dropdown-item" %>
+    <%= button_to partner_path(account, partner), method: :delete, class: "dropdown-item text-danger align-items-center", type: "button" do %>
+      <%= material_icon.shape(:delete).outlined %> <span>Vymaž klienta</span>
+  <% end %>
+  </div>
+</div>

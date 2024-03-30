@@ -74,6 +74,8 @@
 @import "bootstrap/scss/utilities/api";
 // scss-docs-end import-stack
 
+@import "components/table_drop_down";
+
 @media (min-width: 992px) {
   .navbar,
   .navbar-collapse {

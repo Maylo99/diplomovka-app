@@ -1,0 +1,15 @@
+.ra-dropdown-btn {
+  background-color: $secondary;
+  color: #fff;
+  border: none;
+  width: 7rem;
+  height: 3.2rem;
+  align-items: start;
+
+  &:hover {
+    --lc-btn-hover-bg: var(--primary-hover, rgba(120, 134, 158, 0.08));
+  }
+}
+.ra-dropdown-btn::after {
+  display: none;
+}

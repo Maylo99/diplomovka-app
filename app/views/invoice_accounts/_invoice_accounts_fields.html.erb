@@ -1,10 +1,10 @@
 <div class="row">
-  <div class="col-8">
+  <div class="col-6">
     <%= invoice_account_form.label :tax_id, "DIČ", class: "form-label" %>
     <%= invoice_account_form.text_field :tax_id,class: "form-control" %>
     <%= render "shared/error_form_field", object: object, field: :tax_id %>
   </div>
-  <div class="col-4">
+  <div class="col-6">
     <%= invoice_account_form.label :registration_id, "IČO", class: "form-label" %>
     <%= invoice_account_form.text_field :registration_id,class: "form-control" %>
     <%= render "shared/error_form_field", object: object, field: :registration_id %>

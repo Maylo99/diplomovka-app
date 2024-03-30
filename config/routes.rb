@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     member do
       resources :expenses
       resources :bank_accounts
-      resources :partners
+      resources :partners, except: :show
       resources :invoices
     end
   end

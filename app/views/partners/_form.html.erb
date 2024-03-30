@@ -1,7 +1,7 @@
-<%= form_with(model: partner,url: url) do |form| %>
+<%= form_with(model: partner,url: url, id: "partner_form") do |form| %>
 
   <div>
-    <%= form.label :name, class: 'form-label' %>
+    <%= form.label :name,"Názov partnera", class: 'form-label' %>
     <%= form.text_field :name, class: 'form-control' %>
     <%= render "shared/error_form_field", object: @partner, field: :name %>
   </div>
@@ -36,8 +36,5 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="mt-5">
-    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>
