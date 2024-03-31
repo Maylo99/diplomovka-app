@@ -1,14 +1,31 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Expenses</h1>
-
-<div id="expenses">
-  <% @expenses.each do |expense| %>
-    <%= render expense %>
-    <p>
-      <%= link_to "Show this expense", expense_path(@account,expense) %>
-    </p>
+<% content_for :page_header do %>
+  <%= link_to new_expense_path(@account), method: :get, class: "btn btn-primary d-flex align-items-center justify-content-center" do %>
+    <%= material_icon.shape(:add).outlined %>
+    <%= "Nový výdaj" %>
   <% end %>
-</div>
-
-<%= link_to "New expense", new_expense_path %>
+<% end %>
+<%= render 'shared/page_header', title: "Moje výdaje" %>
+<% content_for :page_body do %>
+  <table class="table table-striped table-hover table-responsive ">
+    <thead class="">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col" class="">Pobočka</th>
+      <th scope="col">Číslo dokladu</th>
+      <th scope="col">Dátum vystavenia</th>
+      <th scope="col">UID dokladu</th>
+      <th scope="col" class="">OKP dokladu</th>
+      <th scope="col" class="">Kód pokladnice</th>
+      <th scope="col" class="text-end">Možnosti</th>
+    </tr>
+    </thead>
+    <tbody class="">
+    <%c=0 %>
+    <% @expenses.each do |expense| %>
+      <%= render "expense_table_row", expense: expense, account: @account,c: c  %>
+      <%c+=1%>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+<%= render 'shared/page_body' %>

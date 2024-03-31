@@ -1,66 +1,67 @@
-<%= form_with(model: invoice, url: url) do |form| %>
-
-  <div>
-    <%= form.label :number, "Číslo faktúry", style: "display: block" %>
-    <%= form.text_field :number %>
-    <%= render "shared/error_form_field", object: invoice, field: :number %>
+<%= form_with(model: invoice, url: url, id: "invoice_form") do |form| %>
+  <div class="row">
+    <div class="col-6">
+      <%= form.label :order_number, "Číslo objednávky", class: "form-label" %>
+      <%= form.text_field :order_number, class: "form-control" %>
+      <%= render "shared/error_form_field", object: invoice, field: :order_number %>
+    </div>
+    <div class="col-6">
+      <%= form.label :number, "Číslo faktúry", class: "form-label" %>
+      <%= form.text_field :number, class: "form-control" %>
+      <%= render "shared/error_form_field", object: invoice, field: :number %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :client, "Vyber klienta", style: "display: block" %>
-    <%= form.select :client, @account.partners.collect { |c| [c.name, c.client.id] } %>
-    <%= render "shared/error_form_field", object: invoice, field: :number %>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-3"></div>
   </div>
-
-  <div>
-    <%= form.label :issue_date, "Dátum vystavenia", style: "display: block" %>
-    <%= form.date_field :issue_date %>
-    <%= render "shared/error_form_field", object: invoice, field: :issue_date %>
+  <div class="row">
+    <div class="col-4">
+      <%= form.label :issue_date, "Dátum vystavenia", class: "form-label" %>
+      <%= form.date_field :issue_date, class: "form-control" %>
+      <%= render "shared/error_form_field", object: invoice, field: :issue_date %>
+    </div>
+    <div class="col-4">
+      <%= form.label :delivery_date, "Dátum dodania", class: "form-label" %>
+      <%= form.date_field :delivery_date, class: "form-control" %>
+      <%= render "shared/error_form_field", object: invoice, field: :delivery_date %>
+    </div>
+    <div class="col-4">
+      <%= form.label :due_date, "Dátum splatnosti", class: "form-label" %>
+      <%= form.date_field :due_date, class: "form-control" %>
+      <%= render "shared/error_form_field", object: invoice, field: :due_date %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :delivery_date, "Dátum dodania", style: "display: block" %>
-    <%= form.date_field :delivery_date %>
-    <%= render "shared/error_form_field", object: invoice, field: :delivery_date %>
+  <div class="row">
+    <div class="col-6">
+      <%= form.label :client, "Vyber klienta", class: "form-label" %>
+      <%= form.select :client, @account.partners.collect { |c| [c.name, c.client.id] }, {}, class: "form-select" %>
+      <%= render "shared/error_form_field", object: invoice, field: :number %>
+    </div>
+    <div class="col-6">
+      <%= form.label :payment_method, "Platobná metóda", class: "form-label" %>
+      <%= form.select :payment_method, Invoice.payment_methods.collect { |k, v| [v, v] }, {}, class: "form-select" %>
+      <%= render "shared/error_form_field", object: invoice, field: :payment_method %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :due_date, "Dátum splatnosti", style: "display: block" %>
-    <%= form.date_field :due_date %>
-    <%= render "shared/error_form_field", object: invoice, field: :due_date %>
-  </div>
-
-  <div>
-    <%= form.label :payment_method, "Platobná metóda", style: "display: block" %>
-    <%= form.select :payment_method, Invoice.payment_methods.collect { |k, v| [v, v] } %>
-    <%= render "shared/error_form_field", object: invoice, field: :payment_method %>
-  </div>
-
-  <div>
-    <%= form.label :bank_account_id, "Bankový účet", style: "display: block" %>
+  <div class="row">
+    <div class="col-6">
+      <%= form.label :bank_account_id, "Bankový účet", class: "form-label" %>
       <%= form.select(:bank_account_id,
                       options_for_select(BankAccount.my_bank_accounts(@account)
-                                                    .collect { |ba| [ba.name, ba.id] }, invoice.invoice_bank_accounts.first&.bank_account_id),{}) %>
+                                                    .collect { |ba| [ba.name, ba.id] }, invoice.invoice_bank_accounts.first&.bank_account_id), {}, class: "form-select") %>
+    </div>
+    <div class="col-6">
+      <%= form.label :variable_symbol, "Variabilný symbol", class: "form-label" %>
+      <%= form.text_field :variable_symbol, class: "form-control" %>
+      <%= render "shared/error_form_field", object: invoice, field: :variable_symbol %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :variable_symbol, "Variabilný symbol", style: "display: block" %>
-    <%= form.text_field :variable_symbol %>
-    <%= render "shared/error_form_field", object: invoice, field: :variable_symbol %>
-  </div>
-
-  <div>
-    <%= form.label :order_number, "Číslo objednávky", style: "display: block" %>
-    <%= form.text_field :order_number %>
-    <%= render "shared/error_form_field", object: invoice, field: :order_number %>
-  </div>
-
-
   <div data-controller="form--fields-for">
     <div class="d-flex card">
       <!-- header -->
       <div>
-        <div>Fakturované položky</div>
+        <div><h3>Fakturované položky</h3></div>
         <div class="row">
           <div class="col">Názov</div>
           <div class="col">Počet</div>
@@ -83,13 +84,9 @@
           data: {
             action: "form--fields-for#add",
             fields: form.fields_for(:invoice_items, InvoiceItem.new, child_index: "new_field") { |document_item_add_form| render("invoices/invoice_items/invoice_items_fields", form: document_item_add_form) }
-          }}) %>
+          } }) %>
       </div>
       <!-- footer -->
     </div>
-  </div>
-
-  <div>
-    <%= form.submit %>
   </div>
 <% end %>

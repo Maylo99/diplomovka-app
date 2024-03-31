@@ -5,6 +5,8 @@ class Invoice < ApplicationRecord
   has_many :invoice_bank_accounts
   has_many :invoice_items
   accepts_nested_attributes_for :invoice_items, allow_destroy: true
+  validates :number, presence: true
+  validates :order_number, presence: true
 
 
 
