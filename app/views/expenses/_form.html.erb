@@ -1,73 +1,73 @@
-<%= form_with(model: expense, url: url) do |form| %>
-  <div>
-    <%= form.label :receipt_id, style: "display: block" %>
-    <%= form.text_field :receipt_id %>
-    <%= render "shared/error_form_field", object: expense, field: :receipt_id %>
+<%= form_with(model: expense, url: url, id: "expense_form") do |form| %>
+  <div class="row">
+    <div class="col-4">
+      <%= form.label :receipt_number, "Číslo dokladu", class: "form-label" %>
+      <%= form.text_field :receipt_number, class: "form-control" %>
+      <%= render "shared/error_form_field", object: expense, field: :receipt_number %>
+    </div>
+    <div class="col-4">
+      <%= form.label :cash_register_code, "Kód pokladnice", class: "form-label" %>
+      <%= form.text_field :cash_register_code, class: "form-control" %>
+      <%= render "shared/error_form_field", object: expense, field: :cash_register_code %>
+    </div>
+    <div class="col-4">
+      <%= form.label :issue_date, "Dátum vystavenia", class: "form-label" %>
+      <%= form.date_field :issue_date, class: "form-control" %>
+      <%= render "shared/error_form_field", object: expense, field: :issue_date %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :cash_register_code, style: "display: block" %>
-    <%= form.text_field :cash_register_code %>
-    <%= render "shared/error_form_field", object: expense, field: :cash_register_code %>
+  <div class="row">
+    <div class="col-4">
+      <%= form.label :receipt_id, "UID dokladu", class: "form-label" %>
+      <%= form.text_field :receipt_id, class: "form-control" %>
+      <%= render "shared/error_form_field", object: expense, field: :receipt_id %>
+    </div>
+    <div class="col-4">
+      <%= form.label :okp, "OKP dokladu", class: "form-label" %>
+      <%= form.text_field :okp, class: "form-control" %>
+      <%= render "shared/error_form_field", object: expense, field: :okp %>
+    </div>
+    <div class="col-3">SLECT</div>
   </div>
-
+  <hr>
   <div>
-    <%= form.label :issue_date, style: "display: block" %>
-    <%= form.date_field :issue_date %>
-    <%= render "shared/error_form_field", object: expense, field: :issue_date %>
+    <%= fields_for :unit, @unit_address do |unit_form| %>
+      <%= render "addresses/address_fields", address_form: unit_form, object: @unit_address, address_type: "Adresa pobočky" %>
+    <% end %>
   </div>
-
-  <div>
-    <%= form.label :okp, style: "display: block" %>
-    <%= form.text_field :okp %>
-    <%= render "shared/error_form_field", object: expense, field: :okp %>
+  <div data-controller="form--fields-for">
+    <div class="d-flex card">
+      <div>
+        <div><h3>Fakturované položky</h3></div>
+        <div class="row">
+          <div class="col">Názov</div>
+          <div class="col">Počet</div>
+          <div class="col">Sadzba DPH</div>
+          <div class="col">Cena za jednotku</div>
+          <div class="col">Vymaž položku</div>
+        </div>
+      </div>
+      <%= form.fields_for :expense_items do |expense_items_form| %>
+        <%= render "expenses/expense_items/expense_item_fields", form: expense_items_form %>
+      <% end %>
+      <div>
+        <%= button_tag("Pridaj položku", {
+          data: {
+            action: "form--fields-for#add",
+            fields: form.fields_for(:expense_items, ExpenseItem.new, child_index: "new_field") { |expense_items_form| render "expenses/expense_items/expense_item_fields", form: expense_items_form } } }) %>
+      </div>
+    </div>
   </div>
-
   <div>
-    <%= form.label :receipt_number, style: "display: block" %>
-    <%= form.text_field :receipt_number %>
-    <%= render "shared/error_form_field", object: expense, field: :receipt_number %>
-  </div>
-
-  <div>
-    <strong>Adresa pobočky</strong>
-    <%=fields_for :unit,@unit_address do |unit_form|%>
-      <%=render "addresses/address_fields", address_form: unit_form, object: @unit_address %>
+    <strong>Faktúračná adresa</strong>
+    <%=fields_for :address,@address do |unit_form|%>
+      <%=render "addresses/address_fields", address_form: unit_form, object: @address, address_type: "Zmazat nahradit selectom" %>
     <%end %>
   </div>
-
   <div>
     <strong>Faktúračný účet</strong>
     <%=fields_for :invoice_account,@invoice_account do |unit_form|%>
       <%=render "invoice_accounts/invoice_accounts_fields", invoice_account_form: unit_form, object: @invoice_account %>
     <%end %>
-  </div>
-
-  <div>
-    <strong>Faktúračná adresa</strong>
-    <%=fields_for :address,@address do |unit_form|%>
-      <%=render "addresses/address_fields", address_form: unit_form, object: @address %>
-    <%end %>
-  </div>
-
-  <div data-controller="form--fields-for">
-    <div>
-      <div>Fakturované položky</div>
-      <div class="row">
-        <div class="col">Názov</div>
-        <div class="col">Počet</div>
-        <div class="col">Sadzba DPH"</div>
-        <div class="col">Cena za jednotku</div>
-        <div class="col">Vymaž položku</div>
-      </div>
-    </div>
-    <%=form.fields_for :expense_items do |expense_items_form| %>
-      <%= render "expenses/expense_items/expense_item_fields", form: expense_items_form%>
-    <% end %>
-    <%= button_tag("Pridaj položku", { data: { action: "form--fields-for#add", fields: form.fields_for(:expense_items, ExpenseItem.new, child_index: "new_field") { |expense_items_form|  render "expenses/expense_items/expense_item_fields", form: expense_items_form, expense_item: ExpenseItem.first  } } }) %>
-  </div>
-
-  <div>
-    <%= form.submit %>
   </div>
 <% end %>

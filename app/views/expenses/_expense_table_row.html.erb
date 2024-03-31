@@ -1,0 +1,10 @@
+<tr id=<%=dom_id(expense) %>>
+  <td><%= c %></td>
+  <td><%= expense.unit.name %></td>
+  <td><%= expense.receipt_number%></td>
+  <td><%= expense.issue_date %></td>
+  <td><%= expense.receipt_id  %></td>
+  <td><%= expense.okp%></td>
+  <td><%= expense.cash_register_code %></td>
+  <td class="text-end"><%= render "expenses/expense_drop_down", account: account, expense:expense %></td>
+</tr>
