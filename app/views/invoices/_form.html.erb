@@ -57,6 +57,30 @@
       <%= render "shared/error_form_field", object: invoice, field: :variable_symbol %>
     </div>
   </div>
+
+  <%= form.text_field :vat_rate, class: 'form-control form-control--invoice-item', data: {
+    target: 'invoices--invoice-item.VAT',
+    action: 'input->invoices--invoice-item#calculateTotalVAT'
+  } %>
+
+  <div data-controller="semantic-search">
+    <%= form.label :test, "semantic", class: "form-label" %>
+    <%= form.text_field :test, data: { semantic_search_target: "expression",
+                                       action: "input->semantic-search#search" } %>
+    <input type="checkbox" id="automatic" name="automatic" data-semantic-search-target="automatic" data-action="change->semantic-search#search"/>
+    <div class="automatic-group">
+      <%= form.select :testik, {}, {}, data: { semantic_search_target: "selectAccount" } %>
+      <%= form.text_field :testik, class: "account_option", data: { semantic_search_target: "inputAccount" } %>
+      <%= form.text_field :strana, class: "account_side" %>
+    </div>
+  </div>
+  <div data-controller="automatic-accounting">
+    <input type="checkbox" id="automatic" name="automatic" data-semantic-search-target="automatic"
+           data-automatic-accounting-target="doAccount"
+           data-action="change->automatic-accounting#automaticAccount"/>
+    <input type="hidden" id="document_type" name="document_type" value="vpd" data-automatic-accounting-target="docType">
+  </div>
+
   <div data-controller="form--fields-for">
     <div class="d-flex card">
       <!-- header -->
