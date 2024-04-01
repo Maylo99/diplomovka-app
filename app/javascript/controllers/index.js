@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AutomaticAccountingController from "./automatic_accounting_controller"
+application.register("automatic-accounting", AutomaticAccountingController)
+
 import Form__FieldsForController from "./form/fields_for_controller"
 application.register("form--fields-for", Form__FieldsForController)
 
