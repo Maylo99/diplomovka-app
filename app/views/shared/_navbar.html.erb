@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light rounded-end-5"  style="background:#F3F3F5">
+<nav class="navbar navbar-expand-lg navbar-light rounded-end-5" style="background:#F3F3F5">
   <div class="p-4 ">
     <span>Ratio</span>
     <a href="/">
@@ -14,7 +14,7 @@
         <div class="text-secondary text-uppercase">nastavenia</div>
       </div>
       <li class="nav-item mb-2 mx-3">
-        <a class="nav-link d-flex align-items-center" href="<%=edit_profile_path(current_user) %>">
+        <a class="nav-link d-flex align-items-center" href="<%= edit_profile_path(current_user) %>">
           <span class="material-icons outlined me-3">person</span>Môj profil
         </a>
       </li>
@@ -29,7 +29,7 @@
         </a>
       </li>
       <li class="nav-item mb-2 mx-3">
-        <a class="nav-link d-flex align-items-center" href="<%=bank_accounts_path(@account_id) %>">
+        <a class="nav-link d-flex align-items-center" href="<%= bank_accounts_path(@account_id) %>">
           <span class="material-icons outlined me-3">account_balance_wallet</span>Bankové účty
         </a>
       </li>
@@ -63,10 +63,16 @@
         </a>
       </li>
     </ul>
-    <div class="mt-auto me-auto ms-3 mb-2  ">
-      <a class="nav-link d-flex align-items-le" href="/users/sign_out" data-turbo-prefetch="false">
+    <div class="mt-auto me-auto ms-3 mb-2">
+      <a class="nav-link d-flex align-items-le" href="<%= destroy_user_session_path %>"
+         data-turbo-method="delete" data-turbo-prefetch="false">
         <span class="material-icons outlined me-3">logout</span>Odhlásiť sa
       </a>
     </div>
+    <!--    <div class="mt-auto me-auto ms-3 mb-2  ">-->
+    <!--      <a class="nav-link d-flex align-items-le" href="/users/sign_out" data-turbo-prefetch="false" >-->
+    <!--        <span class="material-icons outlined me-3">logout</span>Odhlásiť sa-->
+    <!--      </a>-->
+    <!--    </div>-->
   </div>
 </nav>
