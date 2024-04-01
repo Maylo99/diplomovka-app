@@ -12,3 +12,6 @@ application.register("form--toggle-visibility", Form__ToggleVisibilityController
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import SemanticSearchController from "./semantic_search_controller"
+application.register("semantic-search", SemanticSearchController)
