@@ -6,6 +6,6 @@
 <% end %>
 <%= render 'shared/page_header', title: "Uprav faktúru: #{@invoice.number}" %>
 <% content_for :page_body do %>
-  <%= render "form", invoice: @invoice, url: invoice_path(@account, @invoice) %>
+  <%= render "form", invoice: @invoice, url: send("#{controller_name}_path")%>
 <% end %>
 <%= render 'shared/page_body' %>
