@@ -63,26 +63,9 @@
     action: 'input->invoices--invoice-item#calculateTotalVAT'
   } %>
 
-  <div data-controller="semantic-search">
-    <%= form.label :test, "semantic", class: "form-label" %>
-    <%= form.text_field :test, data: { semantic_search_target: "expression",
-                                       action: "input->semantic-search#search" } %>
-    <input type="checkbox" id="automatic" name="automatic" data-semantic-search-target="automatic" data-action="change->semantic-search#search"/>
-    <div class="automatic-group">
-      <%= form.select :testik, {}, {}, data: { semantic_search_target: "selectAccount" } %>
-      <%= form.text_field :testik, class: "account_option", data: { semantic_search_target: "inputAccount" } %>
-      <%= form.text_field :strana, class: "account_side" %>
-    </div>
-  </div>
-  <div data-controller="automatic-accounting">
-    <input type="checkbox" id="automatic" name="automatic" data-semantic-search-target="automatic"
-           data-automatic-accounting-target="doAccount"
-           data-action="change->automatic-accounting#automaticAccount"/>
-    <input type="hidden" id="document_type" name="document_type" value="vpd" data-automatic-accounting-target="docType">
-  </div>
 
   <div data-controller="form--fields-for">
-    <div class="d-flex card">
+    <div class="d-flex card"  data-controller="semantic-search">
       <!-- header -->
       <div>
         <div><h3>Fakturované položky</h3></div>
@@ -112,5 +95,18 @@
       </div>
       <!-- footer -->
     </div>
+  </div>
+  <div data-controller="automatic-accounting">
+    <div class="row">
+      <div class="col-auto">
+        <label for="automatic" class="form-label">Automatické účtovanie</label>
+      </div>
+      <div class="col-auto">
+        <input type="checkbox" class="form-check-input" id="automatic" name="automatic" data-semantic-search-target="automatic"
+               data-automatic-accounting-target="doAccount"
+               data-action="change->automatic-accounting#automaticAccount"/>
+      </div>
+    </div>
+    <input type="hidden" id="document_type" name="document_type" value="<%=@invoice.document_type%>" data-automatic-accounting-target="docType">
   </div>
 <% end %>

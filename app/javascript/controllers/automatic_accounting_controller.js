@@ -35,13 +35,14 @@ export default class extends Controller {
       });
   }
 
-  async makePrediction(acc1,acc2=0,acc3=0) {
+  async makePrediction(acc1,acc2,acc3) {
     const url = new URL('http://localhost:8000/decision_tree');
-    url.searchParams.append('account1', acc1);
-    url.searchParams.append('account2', acc2);
-    url.searchParams.append('account3', acc3);
-    url.searchParams.append('document', this.docTypeTarget.value);
 
+    url.searchParams.append('account1',  acc1 || 0);
+    url.searchParams.append('account2', acc2 || 0);
+    url.searchParams.append('account3', acc3 || 0);
+    url.searchParams.append('document', this.docTypeTarget.value);
+    console.log(url)
     const requestData = {
       method: 'GET',
       headers: {
