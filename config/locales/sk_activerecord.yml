@@ -1,0 +1,36 @@
+##preklad chybovych hlášok pri validacii
+sk:
+  activerecord:
+    errors:
+      messages:
+        model_invalid: "Validácia zlyhala %{errors}"
+        inclusion: "nie je zahrnuté v zozname"
+        exclusion: "je rezervovaný"
+        invalid: "je neplatný"
+        confirmation: "nezhoduje sa s %{attribute}"
+        accepted: "musia byť prijaté"
+        empty: "nemôže byť prázdny"
+        blank: "nemôže byť prázdne"
+        present: "musí byť prázdne"
+        taken: "je už zaregistrovaný v systéme"
+        too_long:
+          one: "je príliš dlhé (maximum je 1 znak)"
+          other: "je príliš dlhé (maximum je %{count} znakov)"
+        too_short:
+          one: "je príliš krátke (minimum je 1 znak)"
+          other: "je príliš krátke (minimum je %{count} znakov)"
+        wrong_length:
+          one: "je nesprávna dĺžka (mala by byť 1 znak)"
+          other: "je nesprávna dĺžka (mala by byť %{count} znakov)"
+        not_a_number: "nie je číslo"
+        not_an_integer: "musí byť číslo"
+        greater_than: "musí byť viac ako %{count}"
+        greater_than_or_equal_to: "musí byť väčšie alebo rovné %{count}"
+        equal_to: "musí sa rovnať %{count}"
+        less_than: "musí byť menej ako %{count}"
+        less_than_or_equal_to: "musí byť menšie alebo rovné %{count}"
+        other_than: "musí byť iné ako %{count}"
+        in: "musí byť v %{count}"
+        odd: "musí byť nepárne"
+        even: "musí byť párne"
+        required: "nemôže byť prázdne"

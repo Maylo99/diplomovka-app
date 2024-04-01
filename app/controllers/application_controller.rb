@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :require_login
   before_action :set_last_accessed_account
+  before_action :set_locale
 
 
   def set_account
@@ -10,6 +11,17 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     else
       account_id_in_url_logic(account_id)
+    end
+  end
+  def set_locale
+    if params[:locale]
+      I18n.locale = params[:locale]
+      session[:locale] = params[:locale]
+    elsif session[:locale]
+      I18n.locale = session[:locale]
+    else
+      #I18n.locale = params[:lang] || locale_from_header || I18n.default_locale
+      I18n.locale = "sk"
     end
   end
 
