@@ -22,40 +22,42 @@
           <span class="material-icons outlined me-3">group</span>Moje účty
         </a>
       </li>
-      <li class="nav-item mb-2 mx-3">
-        <a class="nav-link d-flex align-items-center" href="<%= partners_path(@account_id) %>">
-          <span class="material-icons outlined me-3">handshake</span>Klienti
-        </a>
-      </li>
-      <li class="nav-item mb-2 mx-3">
-        <a class="nav-link d-flex align-items-center" href="<%= bank_accounts_path(@account_id) %>">
-          <span class="material-icons outlined me-3">account_balance_wallet</span>Bankové účty
-        </a>
-      </li>
-      <div class="mx-4 mb-2">
-        <div class="text-secondary text-uppercase">moje dokumenty</div>
-      </div>
-      <li class="nav-item mb-2 mx-3">
-        <a class="nav-link d-flex align-items-center" href="<%= invoices_path(@account_id) %>">
-          <span class="material-icons outlined me-3">request_quote</span>Odberateľské faktúry
-        </a>
-      </li>
-      <li class="nav-item mb-2 mx-3">
-        <a class="nav-link d-flex align-items-center" href="<%= invoices_path(@account_id) %>">
-          <span class="material-icons outlined me-3">request_quote</span>Dodávateľské faktúry
-        </a>
-      </li>
-      <li class="nav-item mb-2 mx-3">
-        <a class="nav-link d-flex align-items-center" href="<%= expenses_path(@account_id) %>">
-          <span class="material-icons outlined me-3">receipt_long</span>Príjmový pokladničný doklad
-        </a>
-      </li>
+      <% if @account_id %>
+        <li class="nav-item mb-2 mx-3">
+          <a class="nav-link d-flex align-items-center" href="<%= partners_path(@account_id) %>">
+            <span class="material-icons outlined me-3">handshake</span>Klienti
+          </a>
+        </li>
+        <li class="nav-item mb-2 mx-3">
+          <a class="nav-link d-flex align-items-center" href="<%= bank_accounts_path(@account_id) %>">
+            <span class="material-icons outlined me-3">account_balance_wallet</span>Bankové účty
+          </a>
+        </li>
+        <div class="mx-4 mb-2">
+          <div class="text-secondary text-uppercase">moje dokumenty</div>
+        </div>
+        <li class="nav-item mb-2 mx-3">
+          <a class="nav-link d-flex align-items-center" href="<%= invoices_path(@account_id) %>">
+            <span class="material-icons outlined me-3">request_quote</span>Odberateľské faktúry
+          </a>
+        </li>
+        <li class="nav-item mb-2 mx-3">
+          <a class="nav-link d-flex align-items-center" href="<%= invoices_path(@account_id) %>">
+            <span class="material-icons outlined me-3">request_quote</span>Dodávateľské faktúry
+          </a>
+        </li>
+        <li class="nav-item mb-2 mx-3">
+          <a class="nav-link d-flex align-items-center" href="<%= expenses_path(@account_id) %>">
+            <span class="material-icons outlined me-3">receipt_long</span>Príjmový pokladničný doklad
+          </a>
+        </li>
 
-      <li class="nav-item mb-2 mx-3">
-        <a class="nav-link d-flex align-items-center" href="<%= expenses_path(@account_id) %>">
-          <span class="material-icons outlined me-3">receipt_long</span>Výdavkový pokladničný doklad
-        </a>
-      </li>
+        <li class="nav-item mb-2 mx-3">
+          <a class="nav-link d-flex align-items-center" href="<%= expenses_path(@account_id) %>">
+            <span class="material-icons outlined me-3">receipt_long</span>Výdavkový pokladničný doklad
+          </a>
+        </li>
+      <% end %>
       <li class="nav-item mb-2 mx-3">
         <a class="nav-link d-flex align-items-center" href="#">
           <span class="material-icons outlined me-3">receipt_long</span>Bankový výpis

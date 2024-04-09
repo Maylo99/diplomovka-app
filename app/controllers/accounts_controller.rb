@@ -3,6 +3,7 @@ class AccountsController < ApplicationController
   include Params::InvoiceAccountParams
   include Params::AccountParams
   before_action :set_account, only: %i[ show edit update destroy ]
+  skip_before_action :set_last_accessed_account, only: [:new, :create]
 
   # GET /accounts or /accounts.json
   def index
@@ -53,7 +54,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.persisted?
-        format.html { redirect_to account_url(@account), notice: "Account was successfully created." }
+        format.html { redirect_to accounts_url(), notice: "Account was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end

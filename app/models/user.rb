@@ -7,6 +7,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   def default_account
-    self.user_accounts.find_by(default: true).account
+    self.user_accounts.find_by(default: true)&.account
   end
 end
