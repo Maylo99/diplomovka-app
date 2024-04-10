@@ -60,6 +60,7 @@
       <% end %>
       <div>
         <%= button_tag("Pridaj položku", {
+          class: "btn btn-secondary",
           data: {
             action: "form--fields-for#add",
             fields: form.fields_for(:expense_items, ExpenseItem.new, child_index: "new_field") { |expense_items_form| render "expenses/expense_items/expense_item_fields", form: expense_items_form } } }) %>

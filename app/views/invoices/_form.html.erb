@@ -82,7 +82,8 @@
         <%= render 'invoices/invoice_items/invoice_items_fields', form: invoice_items_form %>
       <% end %>
       <div>
-        <%= button_tag("Add invoice item", {
+        <%= button_tag("Pridaj položku", {
+          class: "btn btn-secondary",
           data: {
             action: "form--fields-for#add",
             fields: form.fields_for(:invoice_items, InvoiceItem.new, child_index: "new_field") { |document_item_add_form| render("invoices/invoice_items/invoice_items_fields", form: document_item_add_form) }

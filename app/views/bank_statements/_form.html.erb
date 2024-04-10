@@ -63,6 +63,7 @@
       <% end %>
       <div>
         <%= button_tag("Pridaj položku", {
+          class: "btn btn-secondary",
           data: {
             action: "form--fields-for#add",
             fields: form.fields_for(:bank_statement_items, BankStatementItem.new, child_index: "new_field") { |bank_statements_items_form| render("bank_statements/bank_statement_items/bank_statement_item_fields", form: bank_statements_items_form) }
