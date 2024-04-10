@@ -1,0 +1,49 @@
+<div data-controller="semantic-search">
+  <div class="row" data-target="fields-for.fields">
+    <div class="col">
+      <%= form.text_field :description, data: { semantic_search_target: "expression",
+                                         action: "input->semantic-search#search" }, class: 'form-control' %>
+    </div>
+    <div class="col">
+      <%= form.date_field :settlement_date, class: 'form-control' %>
+    </div>
+    <div class="col">
+      <%= form.number_field :amount, class: 'form-control' %>
+    </div>
+    <div class="col d-flex justify-content-center">
+      <%= form.check_box :_destroy, { class: "form-check-input",data: { action: "form--fields-for#hide" } } %>
+    </div>
+    <div class="d-flex card border-0 rounded-4 bg-info mb-3 pt-2">
+      <div class="row">
+        <div class="col fw-bold">Automatické vyhľadanie účtu</div>
+        <div class="col fw-bold">Zvoľ účet</div>
+        <div class="col fw-bold">Strana účtu</div>
+        <div class="col fw-bold">Strana bankový výpis</div>
+        <div class="col fw-bold">Automatické účtovanie</div>
+      </div>
+      <div class="row" data-controller="automatic-accounting">
+        <div class="col  d-flex justify-content-center">
+          <input type="checkbox" class="form-check-input" id="semantic_<%=form.index %>" name="automatic" data-semantic-search-target="automatic" data-action="change->semantic-search#search"/>
+        </div>
+        <div class="col">
+          <%= form.select :accounting_case, {}, {}, data: { semantic_search_target: "selectAccount",automatic_accounting_target: "caseAccountSelect" }, class: "account_option form-select" %>
+          <%= form.text_field :accounting_case, data: { semantic_search_target: "inputAccount",automatic_accounting_target: "caseAccountInput" }, class: "account_option form-control" %>
+        </div>caseAccount
+        <div class="col">
+          <%= form.text_field :accounting_case_side, class: "form-control account_side",data:{automatic_accounting_target: "caseAccountSide"} %>
+        </div>
+        <div class="col">
+          <%= form.text_field :account_document_side, class: "form-control account_side",data:{automatic_accounting_target: "documentAccountSide"} %>
+        </div>
+        <div class="col d-flex justify-content-center">
+          <input type="checkbox" class="form-check-input" id="automatic_<%=form.index %>" name="automatic" data-semantic-search-target="automatic"
+                 data-automatic-accounting-target="doAccount"
+                 data-action="change->automatic-accounting#automaticAccount"/>
+        </div>
+        <input type="hidden"  name="document_type" value="bv" data-automatic-accounting-target="docType">
+        <%= form.hidden_field :account_invoice, class: "account_option", value: "221",data:{automatic_accounting_target: "documentAccount"} %>
+      </div>
+    </div>
+  </div>
+</div>
+

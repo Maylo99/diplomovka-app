@@ -2,26 +2,30 @@ import {Controller} from "@hotwired/stimulus"
 
 // Connects to data-controller="automatic-accounting"
 export default class extends Controller {
-    static targets = ["doAccount", "docType", "caseAccountSide", "invoiceAccountSide", "dphAccountSide", "dphAccount", "invoiceAccount", "caseAccountInput", "caseAccountSelect"]
+    static targets = ["doAccount", "docType", "caseAccountSide", "documentAccountSide", "dphAccountSide", "dphAccount", "documentAccount", "caseAccountInput", "caseAccountSelect"]
 
     automaticAccount() {
         let caseAccountValue = 0
+        let dphAccountValue = 0
         if (this.caseAccountInputTarget.value) {
             caseAccountValue = this.caseAccountInputTarget.value
         } else {
             caseAccountValue = this.caseAccountSelectTarget.value
         }
-        let invoiceAccountValue = this.invoiceAccountTarget.value
-        let dphAccountValue = this.dphAccountTarget.value
+        let invoiceAccountValue = this.documentAccountTarget.value
+        if (this.hasDphAccountTarget) {
+            dphAccountValue = this.dphAccountTarget.value
+        }
         this.makePrediction(caseAccountValue, invoiceAccountValue, dphAccountValue).then(data => {
             var data = JSON.parse(data)
             if (this.doAccountTarget.checked) {
                 data = this.edit_api_output_format(data)
-                if (data[dphAccountValue]) {
+                console.log(data)
+                if (data[dphAccountValue] && this.hasDphAccountSideTarget) {
                     this.dphAccountSideTarget.value = data[dphAccountValue]
                 }
                 if (data[invoiceAccountValue]) {
-                    this.invoiceAccountSideTarget.value = data[invoiceAccountValue]
+                    this.documentAccountSideTarget.value = data[invoiceAccountValue]
                 }
                 if (data[caseAccountValue]) {
                     this.caseAccountSideTarget.value = data[caseAccountValue]

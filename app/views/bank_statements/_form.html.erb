@@ -1,0 +1,74 @@
+<%= form_with(model: bank_statement,url:url, id: "bank_statement_form") do |form| %>
+  <div class="row">
+    <div class="col-4">
+      <%= form.label :bank_account_id, "Bankový účet", class: "form-label" %>
+      <%= form.select :bank_account_id, options_for_select(BankAccount.my_bank_accounts(@account).collect { |ba| [ba.name, ba.id] }), {}, class: "form-select" %>
+      <%= render "shared/error_form_field", object: bank_statement, field: :bank_account_id %>
+    </div>
+    <div class="col-4">
+      <%= form.label :number, "Číslo bankového výpisu", class: "form-label" %>
+      <%= form.text_field :number, class: "form-control" %>
+      <%= render "shared/error_form_field", object: bank_statement, field: :number %>
+    </div>
+    <div class="col-4">
+      <%= form.label :serial_number, "Poradové číslo", class: "form-label" %>
+      <%= form.text_field :serial_number, class: "form-control" %>
+      <%= render "shared/error_form_field", object: bank_statement, field: :serial_number %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <%= form.label :accounting_period_month, "Bankový výpis za mesiac", class: "form-label" %>
+      <%= form.select :accounting_period_month, options_for_select(BankStatement.accounting_period_months.collect { |k, v| [v, k] }), {}, class: "form-select" %>
+      <%= render "shared/error_form_field", object: bank_statement, field: :accounting_period_month %>
+    </div>
+    <div class="col-6">
+      <%= form.label :accounting_period_year, "Bankový výpis za rok", class: "form-label" %>
+      <%= form.text_field :accounting_period_year, class: "form-control" %>
+      <%= render "shared/error_form_field", object: bank_statement, field: :accounting_period_year %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <%= form.label :delivery_date, "Dátum dodania", class: "form-label" %>
+      <%= form.date_field :delivery_date, class: "form-control" %>
+      <%= render "shared/error_form_field", object: bank_statement, field: :delivery_date %>
+    </div>
+    <div class="col-6">
+      <%= form.label :date_of_issue, "Dátum vyhotovenia", class: "form-label" %>
+      <%= form.date_field :date_of_issue, class: "form-control" %>
+      <%= render "shared/error_form_field", object: bank_statement, field: :date_of_issue %>
+    </div>
+  </div>
+
+
+
+  <div data-controller="form--fields-for">
+    <div class="d-flex card border-0">
+      <!-- header -->
+      <div>
+        <div><h3>Položky bankového výpisu</h3></div>
+        <div class="row">
+          <div class="col fw-bold">Popis</div>
+          <div class="col fw-bold">Dátum zaučtovania</div>
+          <div class="col fw-bold">Suma</div>
+          <div class="col fw-bold">Vymaž položku</div>
+        </div>
+        <hr>
+      </div>
+      <!-- body -->
+      <!-- TODO: wrap to div -->
+      <%= form.fields_for :bank_statement_items do |bank_statements_items_form| %>
+        <%= render 'bank_statements/bank_statement_items/bank_statement_item_fields', form: bank_statements_items_form %>
+      <% end %>
+      <div>
+        <%= button_tag("Pridaj položku", {
+          data: {
+            action: "form--fields-for#add",
+            fields: form.fields_for(:bank_statement_items, BankStatementItem.new, child_index: "new_field") { |bank_statements_items_form| render("bank_statements/bank_statement_items/bank_statement_item_fields", form: bank_statements_items_form) }
+          } }) %>
+      </div>
+      <!-- footer -->
+    </div>
+  </div>
+<% end %>

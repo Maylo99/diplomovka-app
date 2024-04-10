@@ -39,7 +39,7 @@
       <div class="col fw-bold">Strana faktura</div>
       <div class="col fw-bold">Automatické účtovanie</div>
     </div>
-    <div class="row" class="automatic-group " data-controller="automatic-accounting">
+    <div class="row" data-controller="automatic-accounting">
       <div class="col  d-flex justify-content-center">
         <input type="checkbox" class="form-check-input" id="semantic_<%=form.index %>" name="automatic" data-semantic-search-target="automatic" data-action="change->semantic-search#search"/>
       </div>
@@ -54,7 +54,7 @@
         <%= form.text_field :account_dph_side, class: "form-control account_side",data:{automatic_accounting_target: "dphAccountSide"} %>
       </div>
       <div class="col">
-        <%= form.text_field :account_invoice_side, class: "form-control account_side",data:{automatic_accounting_target: "invoiceAccountSide"} %>
+        <%= form.text_field :account_invoice_side, class: "form-control account_side",data:{automatic_accounting_target: "documentAccountSide"} %>
       </div>
       <div class="col d-flex justify-content-center">
         <input type="checkbox" class="form-check-input" id="automatic_<%=form.index %>" name="automatic" data-semantic-search-target="automatic"
@@ -64,7 +64,7 @@
       <input type="hidden"  name="document_type" value="<%= @invoice.document_type %>" data-automatic-accounting-target="docType">
 <!--      <input type="hidden"  name="document_type" value="dfa" data-automatic-accounting-target="docType">-->
       <%= form.hidden_field :account_dph, class: "account_option", value: "343",data:{automatic_accounting_target: "dphAccount"} %>
-      <%= form.hidden_field :account_invoice, class: "account_option", value: "321",data:{automatic_accounting_target: "invoiceAccount"} %>
+      <%= form.hidden_field :account_invoice, class: "account_option", value: "321",data:{automatic_accounting_target: "documentAccount"} %>
     </div>
   </div>
   <hr>
