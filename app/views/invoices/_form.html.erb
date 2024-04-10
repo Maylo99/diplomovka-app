@@ -58,13 +58,6 @@
       <%= render "shared/error_form_field", object: invoice, field: :variable_symbol %>
     </div>
   </div>
-
-  <%= form.text_field :vat_rate, class: 'form-control form-control--invoice-item', data: {
-    target: 'invoices--invoice-item.VAT',
-    action: 'input->invoices--invoice-item#calculateTotalVAT'
-  } %>
-
-
   <div data-controller="form--fields-for">
     <div class="d-flex card border-0">
       <!-- header -->
