@@ -1,26 +1,72 @@
-<div class="row" data-target="fields-for.fields">
-  <div class="col">
-    <%= form.text_field :name,class: "form-control" %>
-    <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s+ ".name" %>
+<div data-controller="semantic-search">
+  <div class="row" data-target="fields-for.fields">
+    <div class="col">
+      <%= form.text_field :name, data: { semantic_search_target: "expression",
+                                         action: "input->semantic-search#search" }, class: "form-control" %>
+      <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s + ".name" %>
+    </div>
+    <div class="col">
+      <%= form.number_field :quantity, class: "form-control" %>
+      <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s + ".quantity" %>
+    </div>
+    <div class="col">
+      <%= form.number_field :unit_price, class: "form-control" %>
+      <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s + ".unit_price" %>
+    </div>
+    <div class="col">
+      <%= text_field_tag :price, nil, class: 'form-control', placeholder: 'Cena bez DPH' %>
+    </div>
+    <div class="col">
+      <%= form.number_field :vat_rate, class: "form-control" %>
+      <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s + ".vat_rate" %>
+    </div>
+    <div class="col">
+      <%= text_field_tag :price_with_vat, nil, class: 'form-control', placeholder: 'Suma s DPH' %>
+    </div>
+    <div class="col d-flex ">
+      <%= form.check_box :_destroy, { class: "form-check-input", data: { action: "form--fields-for#hide" } } %>
+    </div>
+
+
+    <div class="d-flex card border-0 rounded-4 bg-info mb-3 pt-2">
+      <div class="row">
+        <div class="col fw-bold">Automatické vyhľadanie účtu</div>
+        <div class="col fw-bold">Zvoľ účet</div>
+        <div class="col fw-bold">Strana účtu</div>
+        <div class="col fw-bold">Strana DPH</div>
+        <div class="col fw-bold">Strana pokladnice</div>
+        <div class="col fw-bold">Automatické účtovanie</div>
+      </div>
+      <div class="row" data-controller="automatic-accounting">
+        <div class="col  d-flex justify-content-center">
+          <input type="checkbox" class="form-check-input" id="semantic_<%= form.index %>" name="automatic" data-semantic-search-target="automatic" data-action="change->semantic-search#search"/>
+        </div>
+        <div class="col">
+          <%= form.select :accounting_case, {}, {}, data: { semantic_search_target: "selectAccount", automatic_accounting_target: "caseAccountSelect" }, class: "account_option form-select" %>
+          <%= form.text_field :accounting_case, data: { semantic_search_target: "inputAccount", automatic_accounting_target: "caseAccountInput" }, class: "account_option form-control" %>
+        </div>
+        <div class="col">
+          <%= form.text_field :accounting_case_side, class: "form-control account_side", data: { automatic_accounting_target: "caseAccountSide" } %>
+        </div>
+        <div class="col">
+          <%= form.text_field :account_dph_side, class: "form-control account_side", data: { automatic_accounting_target: "dphAccountSide" } %>
+        </div>
+        <div class="col">
+          <%= form.text_field :account_invoice_side, class: "form-control account_side", data: { automatic_accounting_target: "documentAccountSide" } %>
+        </div>
+        <div class="col d-flex justify-content-center">
+          <input type="checkbox" class="form-check-input" id="automatic_<%= form.index %>" name="automatic" data-semantic-search-target="automatic"
+                 data-automatic-accounting-target="doAccount"
+                 data-action="change->automatic-accounting#automaticAccount"/>
+        </div>
+        <input type="hidden" name="document_type" value="ppd" data-automatic-accounting-target="docType">
+<!--        TODO: rozlisovanie ppd vpd-->
+        <!--      <input type="hidden"  name="document_type" value="dfa" data-automatic-accounting-target="docType">-->
+        <%= form.hidden_field :account_dph, class: "account_option", value: "343", data: { automatic_accounting_target: "dphAccount" } %>
+        <%= form.hidden_field :account_invoice, class: "account_option", value: "211", data: { automatic_accounting_target: "documentAccount" } %>
+      </div>
+    </div>
   </div>
 
-  <div class="col">
-    <%= form.number_field :quantity,class: "form-control" %>
-    <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s+ ".quantity" %>
-  </div>
 
-  <div class="col">
-    <%= form.number_field :vat_rate,class: "form-control" %>
-    <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s+ ".vat_rate" %>
-  </div>
-
-  <div class="col">
-    <%= form.number_field :unit_price,class: "form-control" %>
-    <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s+ ".unit_price" %>
-  </div>
-
-  <div class="col">
-    <%= form.label :destroy %>
-    <%= form.check_box :_destroy, { data: { action: "form--fields-for#hide" } } %>
-  </div>
 </div>
