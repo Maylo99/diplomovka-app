@@ -1,0 +1,12 @@
+<div data-controller="accounts--account-scope" class="account-select-picker-container">
+  <%= form_with(local: true, data: { accounts__account_scope_target: :accountSelect, :action => "change->accounts--account-scope#changeWorkingAccount" }) do |form| %>
+    <% selected_value = request.path == new_account_path ? 'new' : @account_id %>
+
+    <% if @account_id %>
+      <%= form.select(:account_id, Account.my_accounts(current_user) + [["Pridaj nový účet", 'accounts/new']], { selected: selected_value}, {class: 'form-select account-select-picker'}) %>
+    <% else %>
+      <%= link_to "Pridaj nový účet", new_account_path %>
+    <% end %>
+  <% end %>
+  <a href="#" data-accounts--account-scope-target="anchor"></a>
+</div>
