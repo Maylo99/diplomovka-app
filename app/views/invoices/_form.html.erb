@@ -65,20 +65,21 @@
 
 
   <div data-controller="form--fields-for">
-    <div class="d-flex card"  data-controller="semantic-search">
+    <div class="d-flex card border-0">
       <!-- header -->
       <div>
         <div><h3>Fakturované položky</h3></div>
         <div class="row">
-          <div class="col">Názov</div>
-          <div class="col">Počet</div>
-          <div class="col">MJ</div>
-          <div class="col">Cena za jednotku</div>
-          <div class="col">Cena celkom</div>
-          <div class="col">DPH</div>
-          <div class="col">Cena s DPH</div>
-          <div class="col">Vymaž položku</div>
+          <div class="col fw-bold">Názov</div>
+          <div class="col fw-bold">Počet</div>
+          <div class="col fw-bold">MJ</div>
+          <div class="col fw-bold">Cena za jednotku</div>
+          <div class="col fw-bold">Cena celkom</div>
+          <div class="col fw-bold">DPH</div>
+          <div class="col fw-bold">Cena s DPH</div>
+          <div class="col fw-bold">Vymaž položku</div>
         </div>
+        <hr>
       </div>
       <!-- body -->
       <!-- TODO: wrap to div -->
@@ -95,18 +96,5 @@
       </div>
       <!-- footer -->
     </div>
-  </div>
-  <div data-controller="automatic-accounting">
-    <div class="row">
-      <div class="col-auto">
-        <label for="automatic" class="form-label">Automatické účtovanie</label>
-      </div>
-      <div class="col-auto">
-        <input type="checkbox" class="form-check-input" id="automatic" name="automatic" data-semantic-search-target="automatic"
-               data-automatic-accounting-target="doAccount"
-               data-action="change->automatic-accounting#automaticAccount"/>
-      </div>
-    </div>
-    <input type="hidden" id="document_type" name="document_type" value="<%=@invoice.document_type%>" data-automatic-accounting-target="docType">
   </div>
 <% end %>
