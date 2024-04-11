@@ -46,7 +46,7 @@
       <div class="col">
         <%= form.select :accounting_case, {}, {}, data: { semantic_search_target: "selectAccount",automatic_accounting_target: "caseAccountSelect" }, class: "account_option form-select" %>
         <%= form.text_field :accounting_case, data: { semantic_search_target: "inputAccount",automatic_accounting_target: "caseAccountInput" }, class: "account_option form-control" %>
-      </div>caseAccount
+      </div>
       <div class="col">
         <%= form.text_field :accounting_case_side, class: "form-control account_side",data:{automatic_accounting_target: "caseAccountSide"} %>
       </div>
@@ -62,7 +62,6 @@
                data-action="change->automatic-accounting#automaticAccount"/>
       </div>
       <input type="hidden"  name="document_type" value="<%= @invoice.document_type %>" data-automatic-accounting-target="docType">
-<!--      <input type="hidden"  name="document_type" value="dfa" data-automatic-accounting-target="docType">-->
       <%= form.hidden_field :account_dph, class: "account_option", value: "343",data:{automatic_accounting_target: "dphAccount"} %>
       <%= form.hidden_field :account_invoice, class: "account_option", value: "321",data:{automatic_accounting_target: "documentAccount"} %>
     </div>
