@@ -1,30 +1,37 @@
 <!-- body -->
 <div data-controller="semantic-search">
-  <div class="row" data-target="fields-for.fields">
+  <div class="row" data-controller="document-item" data-target="fields-for.fields">
     <div class="col">
       <%= form.text_field :name, data: { semantic_search_target: "expression",
                                          action: "input->semantic-search#search" }, class: 'form-control' %>
     </div>
     <div class="col">
-      <%= form.text_field :quantity, class: 'form-control' %>
+      <%= form.text_field :quantity, data: { document_item_target: 'quantity',
+                                             action: 'input->document-item#calculateTotal' }, class: 'form-control' %>
     </div>
     <div class="col">
       <%= form.text_field :measure_unit, class: 'form-control' %>
     </div>
     <div class="col">
-      <%= form.text_field :unit_price, class: 'form-control' %>
+      <%= form.text_field :unit_price, data: { document_item_target: 'unitPrice',
+                                               action: 'input->document-item#calculateTotal' }, class: 'form-control' %>
     </div>
     <div class="col">
-      <%#= :quantity * :unit_price %>
-      <input type="text" class="form-control" placeholder="Suma">
+      <%= text_field_tag nil, nil, class: 'form-control form-control--invoice-item', data: {
+        document_item_target: 'totalPrice',
+      }, placeholder: 'Suma' %>
     </div>
     <div class="col">
-      <%= form.text_field :vat_rate, class: 'form-control' %>
+      <%= form.text_field :vat_rate, data: {
+        document_item_target: 'VAT',
+        action: 'input->document-item#calculateTotalVAT'
+      }, class: 'form-control' %>
     </div>
 
     <div class="col">
-      <%#= :quantity * :unit_price * :vat_rate %>
-      <input type="text" class="form-control" placeholder="Suma s DPH">
+      <%= text_field_tag nil, nil, class: 'form-control', data: {
+        document_item_target: 'totalPriceVAT',
+      }, placeholder: 'Suma s DPH' %>
     </div>
     <div class="col">
       <%= form.check_box :_destroy, { data: { action: "form--fields-for#hide" } } %>
@@ -41,29 +48,29 @@
     </div>
     <div class="row" data-controller="automatic-accounting">
       <div class="col  d-flex justify-content-center">
-        <input type="checkbox" class="form-check-input" id="semantic_<%=form.index %>" name="automatic" data-semantic-search-target="automatic" data-action="change->semantic-search#search"/>
+        <input type="checkbox" class="form-check-input" id="semantic_<%= form.index %>" name="automatic" data-semantic-search-target="automatic" data-action="change->semantic-search#search"/>
       </div>
       <div class="col">
-        <%= form.select :accounting_case, {}, {}, data: { semantic_search_target: "selectAccount",automatic_accounting_target: "caseAccountSelect" }, class: "account_option form-select" %>
-        <%= form.text_field :accounting_case, data: { semantic_search_target: "inputAccount",automatic_accounting_target: "caseAccountInput" }, class: "account_option form-control" %>
+        <%= form.select :accounting_case, {}, {}, data: { semantic_search_target: "selectAccount", automatic_accounting_target: "caseAccountSelect" }, class: "account_option form-select" %>
+        <%= form.text_field :accounting_case, data: { semantic_search_target: "inputAccount", automatic_accounting_target: "caseAccountInput" }, class: "account_option form-control" %>
       </div>
       <div class="col">
-        <%= form.text_field :accounting_case_side, class: "form-control account_side",data:{automatic_accounting_target: "caseAccountSide"} %>
+        <%= form.text_field :accounting_case_side, class: "form-control account_side", data: { automatic_accounting_target: "caseAccountSide" } %>
       </div>
       <div class="col">
-        <%= form.text_field :account_dph_side, class: "form-control account_side",data:{automatic_accounting_target: "dphAccountSide"} %>
+        <%= form.text_field :account_dph_side, class: "form-control account_side", data: { automatic_accounting_target: "dphAccountSide" } %>
       </div>
       <div class="col">
-        <%= form.text_field :account_invoice_side, class: "form-control account_side",data:{automatic_accounting_target: "documentAccountSide"} %>
+        <%= form.text_field :account_invoice_side, class: "form-control account_side", data: { automatic_accounting_target: "documentAccountSide" } %>
       </div>
       <div class="col d-flex justify-content-center">
-        <input type="checkbox" class="form-check-input" id="automatic_<%=form.index %>" name="automatic" data-semantic-search-target="automatic"
+        <input type="checkbox" class="form-check-input" id="automatic_<%= form.index %>" name="automatic" data-semantic-search-target="automatic"
                data-automatic-accounting-target="doAccount"
                data-action="change->automatic-accounting#automaticAccount"/>
       </div>
-      <input type="hidden"  name="document_type" value="<%= @invoice.document_type %>" data-automatic-accounting-target="docType">
-      <%= form.hidden_field :account_dph, class: "account_option", value: "343",data:{automatic_accounting_target: "dphAccount"} %>
-      <%= form.hidden_field :account_invoice, class: "account_option", value: "321",data:{automatic_accounting_target: "documentAccount"} %>
+      <input type="hidden" name="document_type" value="<%= @invoice.document_type %>" data-automatic-accounting-target="docType">
+      <%= form.hidden_field :account_dph, class: "account_option", value: "343", data: { automatic_accounting_target: "dphAccount" } %>
+      <%= form.hidden_field :account_invoice, class: "account_option", value: "321", data: { automatic_accounting_target: "documentAccount" } %>
     </div>
   </div>
   <hr>

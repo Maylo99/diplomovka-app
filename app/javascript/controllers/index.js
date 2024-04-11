@@ -4,10 +4,14 @@
 
 import { application } from "./application"
 
-import AutomaticAccountingController from "./automatic_accounting_controller"
-application.register("automatic-accounting", AutomaticAccountingController)
 import Accounts__AccountScopeController from "./accounts/account_scope_controller"
 application.register("accounts--account-scope", Accounts__AccountScopeController)
+
+import AutomaticAccountingController from "./automatic_accounting_controller"
+application.register("automatic-accounting", AutomaticAccountingController)
+
+import DocumentItemController from "./document_item_controller"
+application.register("document-item", DocumentItemController)
 
 import Form__FieldsForController from "./form/fields_for_controller"
 application.register("form--fields-for", Form__FieldsForController)
