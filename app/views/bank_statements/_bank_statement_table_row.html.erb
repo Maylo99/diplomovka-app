@@ -1,0 +1,10 @@
+<tr id=<%=dom_id(bank_statement) %>>
+  <td><%= c %></td>
+  <td><%= bank_statement.bank_account.name%></td>
+  <td><%=bank_statement.number%></td>
+  <td><%= bank_statement.serial_number%></td>
+  <td><%=bank_statement.accounting_period_month%></td>
+  <td><%=bank_statement.accounting_period_year%></td>
+  <td><%=bank_statement.date_of_issue%></td>
+  <td class="text-end"><%= render "bank_statements/drop_down", account: account, bank_statement:bank_statement %></td>
+</tr>

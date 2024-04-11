@@ -3,8 +3,8 @@
     <%= material_icon.shape(:more_horiz).outlined %>
   </button>
   <div class="dropdown-menu text-center" aria-labelledby="dropdownMenu2">
-    <%=link_to "Upraviť výdaj",edit_expense_path(account,expense), class: "dropdown-item" %>
-    <%= button_to expense_path(account, expense), method: :delete, class: "dropdown-item text-danger align-items-center", type: "button" do %>
+    <%=link_to "Upraviť výdaj",send("edit_#{controller_name.singularize}_path",account,expense),class: "dropdown-item" %>
+    <%= button_to send("#{controller_name.singularize}_path",account,expense), method: :delete, class: "dropdown-item text-danger align-items-center", type: "button" do %>
       <%= material_icon.shape(:delete).outlined %> <span>Vymaž výdaj</span>
     <% end %>
   </div>

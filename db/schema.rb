@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_24_105252) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_11_093143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,31 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_105252) do
     t.index ["account_id"], name: "index_bank_accounts_on_account_id"
   end
 
+  create_table "bank_statement_items", force: :cascade do |t|
+    t.string "description"
+    t.date "settlement_date"
+    t.decimal "amount"
+    t.bigint "bank_statement_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_statement_id"], name: "index_bank_statement_items_on_bank_statement_id"
+  end
+
+  create_table "bank_statements", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "bank_account_id", null: false
+    t.string "number"
+    t.string "serial_number"
+    t.string "accounting_period_month"
+    t.string "accounting_period_year"
+    t.date "delivery_date"
+    t.date "date_of_issue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_bank_statements_on_account_id"
+    t.index ["bank_account_id"], name: "index_bank_statements_on_bank_account_id"
+  end
+
   create_table "expense_items", force: :cascade do |t|
     t.string "name"
     t.decimal "quantity"
@@ -72,12 +97,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_105252) do
     t.string "country"
     t.bigint "account_id", null: false
     t.bigint "invoice_account_id", null: false
-    t.bigint "unit_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "document_type"
     t.index ["account_id"], name: "index_expenses_on_account_id"
     t.index ["invoice_account_id"], name: "index_expenses_on_invoice_account_id"
-    t.index ["unit_id"], name: "index_expenses_on_unit_id"
   end
 
   create_table "invoice_accounts", force: :cascade do |t|
@@ -128,6 +152,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_105252) do
     t.bigint "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "document_type"
     t.index ["account_id"], name: "index_invoices_on_account_id"
     t.index ["purchaser_id"], name: "index_invoices_on_purchaser_id"
     t.index ["supplier_id"], name: "index_invoices_on_supplier_id"
@@ -139,6 +164,37 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_105252) do
     t.string "name", null: false
     t.index ["account_id"], name: "index_partners_on_account_id"
     t.index ["client_id"], name: "index_partners_on_client_id"
+  end
+
+  create_table "plutus_accounts", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.boolean "contra", default: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.integer "tenant_id"
+    t.index ["name", "type"], name: "index_plutus_accounts_on_name_and_type"
+  end
+
+  create_table "plutus_amounts", id: :serial, force: :cascade do |t|
+    t.string "type"
+    t.integer "account_id"
+    t.integer "entry_id"
+    t.decimal "amount", precision: 20, scale: 10
+    t.index ["account_id", "entry_id"], name: "index_plutus_amounts_on_account_id_and_entry_id"
+    t.index ["entry_id", "account_id"], name: "index_plutus_amounts_on_entry_id_and_account_id"
+    t.index ["type"], name: "index_plutus_amounts_on_type"
+  end
+
+  create_table "plutus_entries", id: :serial, force: :cascade do |t|
+    t.string "description"
+    t.date "date"
+    t.integer "commercial_document_id"
+    t.string "commercial_document_type"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.index ["commercial_document_id", "commercial_document_type"], name: "index_entries_on_commercial_doc"
+    t.index ["date"], name: "index_plutus_entries_on_date"
   end
 
   create_table "user_accounts", force: :cascade do |t|
@@ -171,9 +227,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_105252) do
 
   add_foreign_key "accounts", "invoice_accounts"
   add_foreign_key "bank_accounts", "accounts"
+  add_foreign_key "bank_statement_items", "bank_statements"
+  add_foreign_key "bank_statements", "accounts"
+  add_foreign_key "bank_statements", "bank_accounts"
   add_foreign_key "expense_items", "expenses"
   add_foreign_key "expenses", "accounts"
-  add_foreign_key "expenses", "addresses", column: "unit_id"
   add_foreign_key "expenses", "invoice_accounts"
   add_foreign_key "invoice_accounts", "addresses", column: "invoice_address_id"
   add_foreign_key "invoice_accounts", "addresses", column: "postal_address_id"
