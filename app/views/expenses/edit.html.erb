@@ -1,10 +1,11 @@
-<h1>Editing expense</h1>
-
-<%= render "form", expense: @expense, url: expense_path(@account,@expense) %>
-
-<br>
-
-<div>
-  <%= link_to "Show this expense", @expense %> |
-  <%= link_to "Back to expenses", expenses_path %>
-</div>
+<% content_for :page_header do %>
+  <%= button_tag(type: 'submit', class: 'btn btn-sm btn-primary d-flex align-items-center justify-content-center text-dark', form: 'expense_form') do %>
+    <%= material_icon.shape(:save).outlined %>
+    <span class="ms-2">Uložiť zmeny</span>
+  <% end %>
+<% end %>
+<%= render 'shared/page_header', title: "Uprav výdaj: #{@expense.receipt_number}" %>
+<% content_for :page_body do %>
+  <%= render "form", expense: @expense, url: send("#{controller_name.singularize}_path",@account,@expense)%>
+<% end %>
+<%= render 'shared/page_body' %>

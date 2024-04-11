@@ -1,6 +1,6 @@
 <tr id=<%=dom_id(expense) %>>
   <td><%= c %></td>
-  <td><%= expense.unit.name %></td>
+  <td><%= expense.invoice_account.invoice_address.name %></td>
   <td><%= expense.receipt_number%></td>
   <td><%= expense.issue_date %></td>
   <td><%= expense.receipt_id  %></td>

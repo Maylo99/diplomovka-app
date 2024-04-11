@@ -1,0 +1,31 @@
+<% content_for :page_header do %>
+  <%= link_to new_bank_statement_path(@account), method: :get, class: "btn btn-primary d-flex align-items-center justify-content-center" do %>
+    <%= material_icon.shape(:add).outlined %>
+    <%= "Nový bankový výpis" %>
+  <% end %>
+<% end %>
+<%= render 'shared/page_header', title: "Moje bankové výpisy" %>
+<% content_for :page_body do %>
+  <table class="table table-striped table-hover table-responsive ">
+    <thead class="">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Bankový účet</th>
+      <th scope="col">Číslo výpisu</th>
+      <th scope="col">Poradové číslo</th>
+      <th scope="col" class="">Za mesiac</th>
+      <th scope="col" class="">Za rok</th>
+      <th scope="col" class="">Dátum vyhotovenia</th>
+      <th scope="col" class="text-end">Možnosti</th>
+    </tr>
+    </thead>
+    <tbody class="">
+    <%c=0 %>
+    <% @bank_statements.each do |bank_statement| %>
+      <%= render "bank_statements/bank_statement_table_row", bank_statement: bank_statement, account: @account,c: c  %>
+      <%c+=1%>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+<%= render 'shared/page_body' %>

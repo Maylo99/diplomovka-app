@@ -9,10 +9,14 @@ Rails.application.routes.draw do
   resources :users, except: [:new, :create, :index, :destroy,:show], as: 'profile'
   resources :accounts, param: :account_id, except: :show do
     member do
-      resources :expenses, except: :show
+      resources :charge_expenses, except: :show
+      resources :income_expenses, except: :show
       resources :bank_accounts, except: :show
       resources :partners, except: :show
-      resources :invoices, except: :show
+      resources :bank_statements, except: :show
+      # resources :invoices, except: :show
+      resources :supplier_invoices, except: :show
+      resources :sales_invoices, except: :show
     end
   end
   # Defines the root path route ("/")

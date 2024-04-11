@@ -10,6 +10,12 @@
     </div>
     <ul class="navbar-nav">
       <div class="mx-4 mb-2">
+        <div class="text-secondary text-uppercase">Zmena účtu</div>
+      </div>
+      <li class="nav-item mb-2 mx-3">
+        <%= render 'shared/set_working_account' %>
+      </li>
+      <div class="mx-4 mb-2">
         <div class="text-secondary text-uppercase">nastavenia</div>
       </div>
       <li class="nav-item mb-2 mx-3">
@@ -37,32 +43,32 @@
           <div class="text-secondary text-uppercase">moje dokumenty</div>
         </div>
         <li class="nav-item mb-2 mx-3">
-          <a class="nav-link d-flex align-items-center" href="<%= invoices_path(@account_id) %>">
+          <a class="nav-link d-flex align-items-center" href="<%= sales_invoices_path(@account_id) %>">
             <span class="material-icons outlined me-3">request_quote</span>Odberateľské faktúry
           </a>
         </li>
         <li class="nav-item mb-2 mx-3">
-          <a class="nav-link d-flex align-items-center" href="<%= invoices_path(@account_id) %>">
+          <a class="nav-link d-flex align-items-center" href="<%= supplier_invoices_path(@account_id) %>">
             <span class="material-icons outlined me-3">request_quote</span>Dodávateľské faktúry
           </a>
         </li>
         <li class="nav-item mb-2 mx-3">
-          <a class="nav-link d-flex align-items-center" href="<%= expenses_path(@account_id) %>">
+          <a class="nav-link d-flex align-items-center" href="<%= income_expenses_path(@account_id) %>">
             <span class="material-icons outlined me-3">receipt_long</span>Príjmový pokladničný doklad
           </a>
         </li>
 
+      <li class="nav-item mb-2 mx-3">
+        <a class="nav-link d-flex align-items-center" href="<%= charge_expenses_path(@account_id) %>">
+          <span class="material-icons outlined me-3">receipt_long</span>Výdavkový pokladničný doklad
+        </a>
+      </li>
         <li class="nav-item mb-2 mx-3">
-          <a class="nav-link d-flex align-items-center" href="<%= expenses_path(@account_id) %>">
-            <span class="material-icons outlined me-3">receipt_long</span>Výdavkový pokladničný doklad
+          <a class="nav-link d-flex align-items-center" href="<%= bank_statements_path(@account_id) %>">
+            <span class="material-icons outlined me-3">receipt_long</span>Bankový výpis
           </a>
         </li>
       <% end %>
-      <li class="nav-item mb-2 mx-3">
-        <a class="nav-link d-flex align-items-center" href="#">
-          <span class="material-icons outlined me-3">receipt_long</span>Bankový výpis
-        </a>
-      </li>
     </ul>
     <div class="mt-auto me-auto ms-3 mb-2">
       <a class="nav-link d-flex align-items-le" href="<%= destroy_user_session_path %>"

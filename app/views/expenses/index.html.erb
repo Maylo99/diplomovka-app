@@ -1,5 +1,5 @@
 <% content_for :page_header do %>
-  <%= link_to new_expense_path(@account), method: :get, class: "btn btn-primary d-flex align-items-center justify-content-center" do %>
+  <%= link_to send("new_#{controller_name.singularize}_path",@account), method: :get, class: "btn btn-primary d-flex align-items-center justify-content-center" do %>
     <%= material_icon.shape(:add).outlined %>
     <%= "Nový výdaj" %>
   <% end %>

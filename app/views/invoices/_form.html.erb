@@ -1,4 +1,4 @@
-<%= form_with(model: invoice, url: url, id: "invoice_form") do |form| %>
+<%= form_with(model: invoice, url: url, id: "invoice_form",data:{controller:"payment-options"}) do |form| %>
   <div class="row">
     <div class="col-6">
       <%= form.label :order_number, "Číslo objednávky", class: "form-label" %>
@@ -38,13 +38,14 @@
       <%= form.select :client, @account.partners.collect { |c| [c.name, c.client.id] }, {}, class: "form-select" %>
       <%= render "shared/error_form_field", object: invoice, field: :number %>
     </div>
-    <div class="col-6">
+    <div class="col-6" >
       <%= form.label :payment_method, "Platobná metóda", class: "form-label" %>
-      <%= form.select :payment_method, Invoice.payment_methods.collect { |k, v| [v, v] }, {}, class: "form-select" %>
+      <%= form.select :payment_method, Invoice.payment_methods.collect { |k, v| [v, v] }, {}, data:{action: "change->payment-options#toggleTransactionDetails",
+                                                                                                    payment_options_target:"paymentMethod"},class: "form-select" %>
       <%= render "shared/error_form_field", object: invoice, field: :payment_method %>
     </div>
   </div>
-  <div class="row">
+  <div class="row" data-payment-options-target="transactionDetails">
     <div class="col-6">
       <%= form.label :bank_account_id, "Bankový účet", class: "form-label" %>
       <%= form.select(:bank_account_id,
@@ -57,45 +58,22 @@
       <%= render "shared/error_form_field", object: invoice, field: :variable_symbol %>
     </div>
   </div>
-
-  <%= form.text_field :vat_rate, class: 'form-control form-control--invoice-item', data: {
-    target: 'invoices--invoice-item.VAT',
-    action: 'input->invoices--invoice-item#calculateTotalVAT'
-  } %>
-
-  <div data-controller="semantic-search">
-    <%= form.label :test, "semantic", class: "form-label" %>
-    <%= form.text_field :test, data: { semantic_search_target: "expression",
-                                       action: "input->semantic-search#search" } %>
-    <input type="checkbox" id="automatic" name="automatic" data-semantic-search-target="automatic" data-action="change->semantic-search#search"/>
-    <div class="automatic-group">
-      <%= form.select :testik, {}, {}, data: { semantic_search_target: "selectAccount" } %>
-      <%= form.text_field :testik, class: "account_option", data: { semantic_search_target: "inputAccount" } %>
-      <%= form.text_field :strana, class: "account_side" %>
-    </div>
-  </div>
-  <div data-controller="automatic-accounting">
-    <input type="checkbox" id="automatic" name="automatic" data-semantic-search-target="automatic"
-           data-automatic-accounting-target="doAccount"
-           data-action="change->automatic-accounting#automaticAccount"/>
-    <input type="hidden" id="document_type" name="document_type" value="vpd" data-automatic-accounting-target="docType">
-  </div>
-
   <div data-controller="form--fields-for">
-    <div class="d-flex card">
+    <div class="d-flex card border-0">
       <!-- header -->
       <div>
         <div><h3>Fakturované položky</h3></div>
         <div class="row">
-          <div class="col">Názov</div>
-          <div class="col">Počet</div>
-          <div class="col">MJ</div>
-          <div class="col">Cena za jednotku</div>
-          <div class="col">Cena celkom</div>
-          <div class="col">DPH</div>
-          <div class="col">Cena s DPH</div>
-          <div class="col">Vymaž položku</div>
+          <div class="col fw-bold">Názov</div>
+          <div class="col fw-bold">Počet</div>
+          <div class="col fw-bold">MJ</div>
+          <div class="col fw-bold">Cena za jednotku</div>
+          <div class="col fw-bold">Cena celkom</div>
+          <div class="col fw-bold">DPH</div>
+          <div class="col fw-bold">Cena s DPH</div>
+          <div class="col fw-bold">Vymaž položku</div>
         </div>
+        <hr>
       </div>
       <!-- body -->
       <!-- TODO: wrap to div -->
@@ -104,7 +82,8 @@
         <%= render 'invoices/invoice_items/invoice_items_fields', form: invoice_items_form %>
       <% end %>
       <div>
-        <%= button_tag("Add invoice item", {
+        <%= button_tag("Pridaj položku", {
+          class: "btn btn-secondary",
           data: {
             action: "form--fields-for#add",
             fields: form.fields_for(:invoice_items, InvoiceItem.new, child_index: "new_field") { |document_item_add_form| render("invoices/invoice_items/invoice_items_fields", form: document_item_add_form) }
