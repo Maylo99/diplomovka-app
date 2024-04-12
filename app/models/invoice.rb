@@ -1,4 +1,5 @@
 class Invoice < ApplicationRecord
+  attribute :account_number
   belongs_to :supplier, foreign_key: 'supplier_id', class_name: "InvoiceAccount"
   belongs_to :purchaser, foreign_key: 'purchaser_id', class_name: "InvoiceAccount"
   belongs_to :account, optional: true
@@ -8,6 +9,7 @@ class Invoice < ApplicationRecord
   validates :number, presence: true
   validates :order_number, presence: true
   enum payment_method: { bank: "Bankový prevod", cash: "Hotovosť", cash_on_delivery: "Dobierka" }
+  enum account_number: { dfa: "321", ofa: "311" }
 
 
   def self.my_last_invoice_in_year(account_id, year)

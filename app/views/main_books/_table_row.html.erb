@@ -1,0 +1,1 @@
+<li class="list-group-item"><%=entry.description %> <%=entry.debit_amounts.where(account: @plutus_account).first&.amount %><%=entry.credit_amounts.where(account: @plutus_account).first&.amount %></li>

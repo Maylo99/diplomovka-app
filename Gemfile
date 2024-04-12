@@ -74,3 +74,4 @@ end
 gem "devise", "~> 4.9"
 gem 'foreman', '~> 0.87.2'
 gem 'material_icons'
+gem "plutus"

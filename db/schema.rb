@@ -227,11 +227,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_093143) do
 
   add_foreign_key "accounts", "invoice_accounts"
   add_foreign_key "bank_accounts", "accounts"
-  add_foreign_key "bank_statement_items", "bank_statements"
-  add_foreign_key "bank_statements", "accounts"
-  add_foreign_key "bank_statements", "bank_accounts"
   add_foreign_key "expense_items", "expenses"
   add_foreign_key "expenses", "accounts"
+  add_foreign_key "expenses", "addresses", column: "unit_id"
   add_foreign_key "expenses", "invoice_accounts"
   add_foreign_key "invoice_accounts", "addresses", column: "invoice_address_id"
   add_foreign_key "invoice_accounts", "addresses", column: "postal_address_id"
