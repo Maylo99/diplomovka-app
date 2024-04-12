@@ -26,8 +26,8 @@
           <input type="checkbox" class="form-check-input" id="semantic_<%=form.index %>" name="automatic" data-semantic-search-target="automatic" data-action="change->semantic-search#search"/>
         </div>
         <div class="col">
-          <%= form.select :accounting_case, {}, {}, data: { semantic_search_target: "selectAccount",automatic_accounting_target: "caseAccountSelect" }, class: "account_option form-select" %>
-          <%= form.text_field :accounting_case, data: { semantic_search_target: "inputAccount",automatic_accounting_target: "caseAccountInput" }, class: "account_option form-control" %>
+          <%= form.select :accounting_case_select, {}, {}, data: { semantic_search_target: "selectAccount",automatic_accounting_target: "caseAccountSelect" }, class: "account_option form-select" %>
+          <%= form.text_field :accounting_case_input, data: { semantic_search_target: "inputAccount",automatic_accounting_target: "caseAccountInput" }, class: "account_option form-control" %>
         </div>
         <div class="col">
           <%= form.text_field :accounting_case_side, class: "form-control account_side",data:{automatic_accounting_target: "caseAccountSide"} %>
