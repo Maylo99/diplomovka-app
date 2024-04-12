@@ -5,7 +5,7 @@ export default class extends Controller {
     static targets = ["anchor"]
 
     changeWorkingAccount(event) {
-        const resources = ["sales_invoices","supplier_invoices","bank_statements", "expenses","income_expenses","charge_expenses"]
+        const resources = ["sales_invoices","supplier_invoices","bank_statements", "expenses","income_expenses","charge_expenses","main_books"]
         const selectedAccountId = event.target.value;
         let new_path = "/";
 
