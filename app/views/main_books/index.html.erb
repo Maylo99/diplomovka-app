@@ -1,0 +1,48 @@
+<% content_for :page_header do %>
+  <%= form_with url: main_books_path(@account), method: :get, data: { turbo_frame: "account_cases",
+                                                                      turbo_action: "advance" } do |form| %>
+    <%= form.label :plutus_account, "Záznamy pre účet", class: "form-label" %>
+    <%= form.select :plutus_account,
+                    options_for_select(
+                      Plutus::Account.where(tenant: @account)
+                                     .select { |a| a.name.length <= 5 }
+                                     .group_by { |a| a.name[0..2] }
+                                     .map { |name, accounts| [name, name] }
+                    ),
+                    { prompt: "Vyber účet" },
+                    class: "form-select",
+                    onchange: 'this.form.requestSubmit()'
+    %>
+  <% end %>
+<% end %>
+<%= render 'shared/page_header', title: "Účtovné zápisy" %>
+<% content_for :page_body do %>
+  <%=Plutus::Account.trial_balance %>
+  <%= turbo_frame_tag "account_cases" do %>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">Strana Má dať</div>
+            <ul class="list-group list-group-flush">
+                <% @md.each do |entry| %>
+                  <%= render "table_row", entry: entry %>
+                <% end %>
+            </ul>
+          </div>
+        </div>
+        <div class="col ">
+          <div class="card">
+            <div class="card-header">Strana Dal</div>
+            <ul class="list-group list-group-flush">
+                <% @d.each do |entry| %>
+                  <%= render "table_row", entry: entry %>
+                <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+<%= render 'shared/page_body' %>

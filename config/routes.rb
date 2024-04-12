@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       # resources :invoices, except: :show
       resources :supplier_invoices, except: :show
       resources :sales_invoices, except: :show
+      resources :main_books
     end
   end
   # Defines the root path route ("/")

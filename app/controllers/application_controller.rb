@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
       session[:last_accessed_account_id] = account_id
     end
     @account_id = session[:last_accessed_account_id] || current_user.default_account&.id
+    redirect_to new_account_path unless @account_id
   end
 
   private

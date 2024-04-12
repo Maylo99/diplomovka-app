@@ -1,5 +1,6 @@
 class InvoicesController < ApplicationController
   include Documentable
+  include Accounting::Accountable
   include Params::AddressParams
   include Params::InvoiceAccountParams
   before_action :authenticate_user!
@@ -50,7 +51,8 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.persisted?
-        format.html { redirect_to edit_path, notice: "Invoice was successfully created." }
+        add_entry_to_account(invoice_params[:invoice_items_attributes],@invoice.invoice_items,@account)
+        format.html { redirect_to edit_path, notice: "Faktúra bola úspešne vytvorená" }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -62,7 +64,8 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       if @invoice.update(invoice_params.merge(document_type: invoice_type, purchaser_id: params[:invoice][:client]))
         @invoice.invoice_bank_accounts.first.update(bank_account_id: params[:invoice][:bank_account_id])
-        format.html { redirect_to edit_path, notice: "Invoice was successfully updated." }
+        update_entry_to_account(invoice_params[:invoice_items_attributes],@invoice.invoice_items,@account)
+        format.html { redirect_to edit_path, notice: "Faktúra bola úspešne aktualizovaná" }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -73,7 +76,7 @@ class InvoicesController < ApplicationController
   def destroy
     if @invoice.destroy
       respond_to do |format|
-        format.html { redirect_to index_path, notice: "Invoice was successfully destroyed." }
+        format.html { redirect_to index_path, notice: "Faktúra bola úspešne odmazana" }
       end
     end
   end
@@ -110,6 +113,9 @@ class InvoicesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def invoice_params
     params.require(:invoice).permit(:document_type, :issue_date, :delivery_date, :due_date, :number, :payment_method, :variable_symbol, :order_number,
-                                    invoice_items_attributes: [:id, :name, :description, :quantity, :measure_unit, :unit_price, :vat_rate, :_destroy])
+                                    invoice_items_attributes: [:id, :name, :description, :quantity, :measure_unit,
+                                                               :unit_price, :vat_rate, :_destroy,:accounting_case_select,
+                                                               :accounting_case_input,:accounting_case_side,:account_dph_side,:account_document_side,:account_dph,
+                                                               :account_document])
   end
 end

@@ -1,27 +1,36 @@
 <div data-controller="semantic-search">
-  <div class="row" data-target="fields-for.fields">
+  <div class="row" data-controller="document-item" data-target="fields-for.fields">
     <div class="col">
       <%= form.text_field :name, data: { semantic_search_target: "expression",
                                          action: "input->semantic-search#search" }, class: "form-control" %>
       <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s + ".name" %>
     </div>
     <div class="col">
-      <%= form.number_field :quantity, class: "form-control" %>
+      <%= form.number_field :quantity, data: { document_item_target: 'quantity',
+                                               action: 'input->document-item#calculateTotal' }, class: "form-control" %>
       <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s + ".quantity" %>
     </div>
     <div class="col">
-      <%= form.number_field :unit_price, class: "form-control" %>
+      <%= form.number_field :unit_price, data: { document_item_target: 'unitPrice',
+                                                 action: 'input->document-item#calculateTotal' }, class: "form-control" %>
       <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s + ".unit_price" %>
     </div>
     <div class="col">
-      <%= text_field_tag :price, nil, class: 'form-control', placeholder: 'Cena bez DPH' %>
+      <%= text_field_tag :price, nil, data: {
+        document_item_target: 'totalPrice',
+      }, class: 'form-control', placeholder: 'Cena bez DPH' %>
     </div>
     <div class="col">
-      <%= form.number_field :vat_rate, class: "form-control" %>
+      <%= form.number_field :vat_rate, data: {
+        document_item_target: 'VAT',
+        action: 'input->document-item#calculateTotalVAT'
+      }, class: "form-control" %>
       <%= render "shared/error_form_field", object: @expense, field: (:expense_items).to_s + ".vat_rate" %>
     </div>
     <div class="col">
-      <%= text_field_tag :price_with_vat, nil, class: 'form-control', placeholder: 'Suma s DPH' %>
+      <%= text_field_tag :price_with_vat, nil, data: {
+        document_item_target: 'totalPriceVAT',
+      }, class: 'form-control', placeholder: 'Suma s DPH' %>
     </div>
     <div class="col d-flex ">
       <%= form.check_box :_destroy, { class: "form-check-input", data: { action: "form--fields-for#hide" } } %>
@@ -59,7 +68,7 @@
                  data-automatic-accounting-target="doAccount"
                  data-action="change->automatic-accounting#automaticAccount"/>
         </div>
-              <input type="hidden"  name="document_type" value="<%=@expense.document_type %>" data-automatic-accounting-target="docType">
+        <input type="hidden" name="document_type" value="<%= @expense.document_type %>" data-automatic-accounting-target="docType">
         <%= form.hidden_field :account_dph, class: "account_option", value: "343", data: { automatic_accounting_target: "dphAccount" } %>
         <%= form.hidden_field :account_invoice, class: "account_option", value: "211", data: { automatic_accounting_target: "documentAccount" } %>
       </div>
