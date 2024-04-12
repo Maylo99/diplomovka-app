@@ -3,6 +3,11 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="document-item"
 export default class extends Controller {
   static targets = [ "quantity", "unitPrice", "totalPrice", "VAT", "totalPriceVAT"];
+  connect() {
+    this.calculateTotal()
+    this.calculateTotalVAT()
+  }
+
   calculateTotal() {
     const quantity = parseFloat(this.quantityTarget.value);
     const unitPrice = parseFloat(this.unitPriceTarget.value);
