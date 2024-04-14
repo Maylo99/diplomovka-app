@@ -7,7 +7,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts or /accounts.json
   def index
-    @accounts = Account.all
+    @accounts = current_user.accounts
   end
   # GET /accounts/new
   def new

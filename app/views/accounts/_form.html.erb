@@ -44,13 +44,13 @@
       <%= fields_for :postal_address, @postal_address do |postal_address_form| %>
         <%= render "addresses/address_fields", address_form: postal_address_form, object: @postal_address,address_type: "Poštová adresa" %>
       <% end %>
-      <div class="form-check">
-        <%= form.check_box :address_match, { checked: !@postal_address.persisted?, data: {
-          :action => "change->form--toggle-visibility#toggleElementDisplay",
-          :form__toggle_visibility_target => "flag"
-        } }, class: 'form-check-input' %>
-        <%= form.label "Faktúračná adresa je zhodná s poštovou", class: 'form-check-label' %>
-      </div>
+    </div>
+    <div class="form-check">
+      <%= form.check_box :address_match, { checked: !@postal_address.persisted?, data: {
+        :action => "change->form--toggle-visibility#toggleElementDisplay",
+        :form__toggle_visibility_target => "flag"
+      } }, class: 'form-check-input' %>
+      <%= form.label "Faktúračná adresa je zhodná s poštovou", class: 'form-check-label' %>
     </div>
   </div>
 <% end %>
