@@ -7,7 +7,7 @@ class PartnersController < ApplicationController
 
   # GET /partners or /partners.json
   def index
-    @partners =@account.partners
+    @partners =@account.partners.where.not(account_id: nil )
   end
 
   # GET /partners/new
@@ -79,7 +79,6 @@ class PartnersController < ApplicationController
   # DELETE /partners/1 or /partners/1.json
   def destroy
     @partner.unmap_account_id
-
     respond_to do |format|
       format.html { redirect_to partners_url, notice: "Partner was successfully destroyed." }
     end

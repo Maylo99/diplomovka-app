@@ -1,7 +1,7 @@
 class BankStatement < ApplicationRecord
   belongs_to :account
   belongs_to :bank_account
-  has_many :bank_statement_items
+  has_many :bank_statement_items,dependent: :destroy
   accepts_nested_attributes_for :bank_statement_items, allow_destroy: true
   enum accounting_period_month: {
     "1" => "Január",

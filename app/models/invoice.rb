@@ -4,7 +4,7 @@ class Invoice < ApplicationRecord
   belongs_to :purchaser, foreign_key: 'purchaser_id', class_name: "InvoiceAccount"
   belongs_to :account, optional: true
   has_many :invoice_bank_accounts, dependent: :destroy
-  has_many :invoice_items
+  has_many :invoice_items, dependent: :destroy
   accepts_nested_attributes_for :invoice_items, allow_destroy: true
   validates :number, presence: true
   validates :order_number, presence: true

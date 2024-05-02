@@ -25,7 +25,7 @@ class BankAccountsController < ApplicationController
 
     respond_to do |format|
       if @bank_account.save
-        format.html { redirect_to bank_account_url(@account,@bank_account), notice: "Bank account was successfully created." }
+        format.html { redirect_to bank_accounts_url(@account), notice: "Bank account was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end

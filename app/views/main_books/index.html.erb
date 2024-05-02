@@ -17,7 +17,7 @@
 <% end %>
 <%= render 'shared/page_header', title: "Účtovné zápisy" %>
 <% content_for :page_body do %>
-  <%=Plutus::Account.trial_balance %>
+  <%#=Plutus::Account.trial_balance %>
   <%= turbo_frame_tag "account_cases" do %>
     <div class="container">
       <div class="row">

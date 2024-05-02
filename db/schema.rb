@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_11_093143) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_02_111609) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_093143) do
     t.string "swift_code", limit: 15, null: false
     t.string "account_number", null: false
     t.string "bank_code", limit: 10
-    t.bigint "account_id", null: false
+    t.bigint "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_bank_accounts_on_account_id"
@@ -159,7 +159,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_093143) do
   end
 
   create_table "partners", force: :cascade do |t|
-    t.bigint "account_id", null: false
+    t.bigint "account_id"
     t.bigint "client_id", null: false
     t.string "name", null: false
     t.index ["account_id"], name: "index_partners_on_account_id"
@@ -227,9 +227,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_093143) do
 
   add_foreign_key "accounts", "invoice_accounts"
   add_foreign_key "bank_accounts", "accounts"
+  add_foreign_key "bank_statement_items", "bank_statements"
+  add_foreign_key "bank_statements", "accounts"
+  add_foreign_key "bank_statements", "bank_accounts"
   add_foreign_key "expense_items", "expenses"
   add_foreign_key "expenses", "accounts"
-  add_foreign_key "expenses", "addresses", column: "unit_id"
   add_foreign_key "expenses", "invoice_accounts"
   add_foreign_key "invoice_accounts", "addresses", column: "invoice_address_id"
   add_foreign_key "invoice_accounts", "addresses", column: "postal_address_id"

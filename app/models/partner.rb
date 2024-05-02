@@ -1,5 +1,5 @@
 class Partner < ApplicationRecord
-  belongs_to :account
+  belongs_to :account, optional: true
   belongs_to :client, foreign_key: 'client_id', class_name: "InvoiceAccount"
 
   validates :name, presence: true

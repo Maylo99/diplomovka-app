@@ -28,7 +28,8 @@
           <span class="material-icons outlined me-3">group</span>Moje účty
         </a>
       </li>
-      <% if @account_id %>
+      <% if @account_id or current_user.accounts.count>0%>
+        <% @account_id=current_user.accounts.first unless @account_id%>
         <li class="nav-item mb-2 mx-3">
           <a class="nav-link d-flex align-items-center" href="<%= partners_path(@account_id) %>">
             <span class="material-icons outlined me-3">handshake</span>Klienti
