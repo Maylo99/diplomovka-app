@@ -5,7 +5,7 @@
     <% if @account_id %>
       <%= form.select(:account_id, Account.my_accounts(current_user) + [["Pridaj nový účet", 'accounts/new']], { selected: selected_value}, {class: 'form-select account-select-picker'}) %>
     <% else %>
-      <%= link_to "Pridaj nový účet", new_account_path %>
+      <%= link_to "Pridaj nový účet", new_account_path%>
     <% end %>
   <% end %>
   <a href="#" data-accounts--account-scope-target="anchor"></a>
