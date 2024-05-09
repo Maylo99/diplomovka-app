@@ -70,7 +70,7 @@
         </div>
         <input type="hidden" name="document_type" value="<%= @expense.document_type %>" data-automatic-accounting-target="docType">
         <%= form.hidden_field :account_dph, class: "account_option", value: "343", data: { automatic_accounting_target: "dphAccount" } %>
-        <%= form.hidden_field :account_invoice, class: "account_option", value: "211", data: { automatic_accounting_target: "documentAccount" } %>
+        <%= form.hidden_field :account_document, class: "account_option", value: "211", data: { automatic_accounting_target: "documentAccount" } %>
       </div>
     </div>
   </div>

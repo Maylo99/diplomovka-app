@@ -1,4 +1,5 @@
 class BankStatementsController < ApplicationController
+  include Accounting::Accountable
   before_action :authenticate_user!
   before_action :set_account
   before_action :set_bank_statement, only: %i[  edit update destroy ]
@@ -22,6 +23,7 @@ class BankStatementsController < ApplicationController
 
     respond_to do |format|
       if @bank_statement.save
+        add_entry_to_account(bank_statement_params[:bank_statement_items_attributes],@bank_statement.bank_statement_items,@account)
         format.html { redirect_to bank_statements_url(@account), notice: "Bankový výpis bol úspešne vytvorený." }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -33,6 +35,7 @@ class BankStatementsController < ApplicationController
   def update
     respond_to do |format|
       if @bank_statement.update(bank_statement_params.merge(account: @account))
+        update_entry_to_account(bank_statement_params[:bank_statement_items_attributes],@bank_statement.bank_statement_items,@account)
         format.html { redirect_to bank_statements_url(@account), notice: "Bankový výpis bol úspešne aktualizovaný." }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,6 +60,8 @@ class BankStatementsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def bank_statement_params
       params.require(:bank_statement).permit(:account_id, :bank_account_id, :number, :serial_number, :accounting_period_month, :accounting_period_year, :delivery_date, :date_of_issue,
-                                             bank_statement_items_attributes: [:id, :description,:settlement_date,:amount, :_destroy])
+                                             bank_statement_items_attributes: [:id, :description,:settlement_date,:amount, :_destroy,:accounting_case_select,
+                                                                               :accounting_case_input,:accounting_case_side,:account_dph_side,:account_document_side,:account_dph,
+                                                                               :account_document])
     end
 end

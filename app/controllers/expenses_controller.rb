@@ -1,4 +1,5 @@
 class ExpensesController < ApplicationController
+  include Accounting::Accountable
   include Params::AddressParams
   include Params::InvoiceAccountParams
   before_action :set_account
@@ -43,6 +44,7 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.persisted?
+        add_entry_to_account(expense_params[:expense_items_attributes],@expense.expense_items,@account)
         format.html { redirect_to edit_path, notice: "Výdaj bol úspešne vytvorený." }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -72,6 +74,7 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @is_updated
+        update_entry_to_account(expense_params[:expense_items_attributes],@expense.expense_items,@account)
         format.html { redirect_to edit_path, notice: "Výdaj bol úspešne aktualizovaný." }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -117,6 +120,9 @@ class ExpensesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def expense_params
     params.require(:expense).permit(:receipt_id, :cash_register_code, :issue_date, :okp, :receipt_number,
-                                    expense_items_attributes: [:id, :name, :quantity, :vat_rate, :unit_price, :_destroy])
+                                    expense_items_attributes: [:id, :name, :quantity, :vat_rate, :unit_price, :_destroy,
+                                                               :accounting_case_select,
+                                                               :accounting_case_input,:accounting_case_side,:account_dph_side,:account_document_side,:account_dph,
+                                                               :account_document])
   end
 end
