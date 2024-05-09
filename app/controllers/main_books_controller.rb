@@ -12,7 +12,6 @@ class MainBooksController < ApplicationController
       @md += pl_account.debit_entries
       @d += pl_account.credit_entries
     end
-    @plutus_account = @plutus_accounts.first
-    @plutus_account = Plutus::Account.first unless @plutus_account
+    @plutus_accounts_ids = @plutus_accounts.ids
   end
 end
